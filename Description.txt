@@ -2,13 +2,29 @@ Description
 Tourism and Visitors in Australia – Data Visualisation 2
 
 Domain & What:
-This project is tourism and visitor activity in Australia, with a particular focus on international arrivals, their distribution across states and territories, and the main purposes for which people travel. Tourism is chosen because it is both socially and economically significant to Australia, and it has experienced dramatic shifts in recent years due to pandemic and subsequent recovery. Some years before pandemic may be referred as well. The visualisation addresses the need for a clear and engaging way to understand who visits Australia, where they go, and how patterns have evolved over time. 
+This project is tourism and visitor activity in Australia, with a particular focus on 
+international arrivals, their distribution across states and territories, and the main 
+purposes for which people travel. Tourism is chosen because it is both socially and 
+economically significant to Australia, and it has experienced dramatic shifts in recent 
+years due to pandemic and subsequent recovery. Some years before pandemic may be referred 
+as well. The visualisation addresses the need for a clear and engaging way to understand who 
+visits Australia, where they go, and how patterns have evolved over time. 
 
 Why:
-I choose to visualise tourism and visitor patterns in Australia because tourism is a vital part of the national economy and culture, yet its trends are not always easy for the public to interpret from raw statistics. The sharp disruptions caused by pandemic and the ongoing recovery highlight the importance of understanding how visitor numbers, spending, and purposes of travel are changing. By mapping where tourists go, identifying who they are, and potentially showing why they visit, the visualisation makes complex datasets more accessible and allows viewers to see the role tourism plays in their states and communities.
+I choose to visualise tourism and visitor patterns in Australia because tourism is a vital 
+part of the national economy and culture, yet its trends are not always easy for the public
+to interpret from raw statistics. The sharp disruptions caused by pandemic and the ongoing 
+recovery highlight the importance of understanding how visitor numbers, spending, and purposes 
+of travel are changing. By mapping where tourists go, identifying who they are, and potentially 
+showing why they visit, the visualisation makes complex datasets more accessible and allows 
+viewers to see the role tourism plays in their states and communities.
 
 Target Audience:
-The intended audience is the average Australian viewer, who may not have specialist statistical knowledge but is interested in seeing how tourism contributes to their local region and how Australia is perceived globally as a travel destination. This could include students, professionals, or policy-interested citizens who want insights into trends that affect the economy and cultural exchange.
+The intended audience is the average Australian viewer, who may not have specialist statistical
+knowledge but is interested in seeing how tourism contributes to their local region and how 
+Australia is perceived globally as a travel destination. This could include students, professionals, 
+or policy-interested citizens who want insights into trends that affect the economy and cultural 
+exchange.
 
 Data Resource:
 1. Overseas Arrivals and Departures (ABS): https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release?utm_source=chatgpt.com
@@ -20,7 +36,18 @@ Data Resource:
 4. Tourism Region Map: https://www.tra.gov.au/en/regional/tourism-regions
 
 How (idioms): 
-The visualisation uses a combination of idioms selected for clarity and storytelling. A choropleth map of Australia forms the centrepiece, showing the distribution of international visitors by state, allowing viewers to immediately see regional contrasts. Supporting the map, a bar chart displays the top ten source countries of visitors, making it easy to identify Australia’s most important tourism markets. Some other charts show the distribution of visitor purposes, comparing categories such as holiday, business and education. To highlight temporal changes, line chart may used to show arrivals over time. Together, these idioms provide both spatial and temporal perspectives, enhancing insight.
+The visualisation uses a combination of idioms selected for clarity and storytelling. A choropleth
+map of Australia forms the centrepiece, showing the distribution of international visitors by 
+state, allowing viewers to immediately see regional contrasts. Supporting the map, a bar chart 
+displays the top ten source countries of visitors, making it easy to identify Australia's most 
+important tourism markets. Some other charts show the distribution of visitor purposes, comparing 
+categories such as holiday, business and education. To highlight temporal changes, line chart 
+may used to show arrivals over time. Together, these idioms provide both spatial and temporal 
+perspectives, enhancing insight.
 
 Special features:
-The visualisation include the integration of multiple datasets into a single web page, styled with CSS for readability and layout. The Vega-Lite JSON files are accessible in the repository, and annotations are included to guide interpretation. Icons and colour schemes are carefully chosen to support clarity. By combining maps, histograms, and time series, the visualisation tells a coherent story: where tourists come from, where they go, why they visit.
+The visualisation include the integration of multiple datasets into a single web page, styled 
+with CSS for readability and layout. The Vega-Lite JSON files are accessible in the repository,
+and annotations are included to guide interpretation. Icons and colour schemes are carefully 
+chosen to support clarity. By combining maps, histograms, and time series, the visualisation 
+tells a coherent story: where tourists come from, where they go, why they visit.
