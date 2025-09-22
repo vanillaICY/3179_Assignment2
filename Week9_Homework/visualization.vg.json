@@ -1,0 +1,112 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "white",
+  "padding": 5,
+  "width": 500,
+  "height": 300,
+  "title": {"text": "Visitors in Australia (24-25)", "frame": "group"},
+  "style": "view",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/ne_110m_ocean.json",
+      "format": {"type": "topojson", "feature": "ne_110m_ocean"}
+    },
+    {
+      "name": "source_2",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_2024_25.csv",
+      "format": {"type": "csv", "delimiter": ","}
+    },
+    {
+      "name": "source_1",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/ne_50m_admin_1_states_provinces.json",
+      "format": {
+        "type": "topojson",
+        "feature": "ne_50m_admin_1_states_provinces",
+        "parse": {}
+      },
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum[\"properties\"] && datum[\"properties\"][\"name\"]",
+          "as": "properties.name"
+        },
+        {
+          "type": "lookup",
+          "from": "source_2",
+          "key": "State",
+          "fields": ["properties.name"],
+          "values": ["Percentage", "Arrivals"]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"Percentage\"]) && isFinite(+datum[\"Percentage\"])"
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "size": {"signal": "[width, height]"},
+      "fit": {"signal": "[data('source_0'), data('source_1')]"},
+      "type": "identity",
+      "reflectY": true
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "shape",
+      "style": ["geoshape"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#a2d7ec"},
+          "stroke": {"value": null},
+          "ariaRoleDescription": {"value": "geoshape"}
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "shape",
+      "style": ["geoshape"],
+      "from": {"data": "source_1"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 2},
+          "fill": {"scale": "color", "field": "Percentage"},
+          "tooltip": {
+            "signal": "{\"State/Territory\": isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"], \"Percentage (%)\": format(datum[\"Percentage\"], \".1f\"), \"Arrivals\": format(datum[\"Arrivals\"], \",\")}"
+          },
+          "ariaRoleDescription": {"value": "geoshape"},
+          "description": {
+            "signal": "\"# Arrivals (24-25): \" + (format(datum[\"Percentage\"], \"\")) + \"; State/Territory: \" + (isValid(datum[\"properties.name\"]) ? datum[\"properties.name\"] : \"\"+datum[\"properties.name\"]) + \"; Percentage (%): \" + (format(datum[\"Percentage\"], \".1f\")) + \"; Arrivals: \" + (format(datum[\"Arrivals\"], \",\"))"
+          }
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "linear",
+      "domain": {"data": "source_1", "field": "Percentage"},
+      "range": "heatmap",
+      "interpolate": "hcl",
+      "zero": false
+    }
+  ],
+  "legends": [
+    {
+      "title": "# Arrivals (24-25)",
+      "fill": "color",
+      "gradientLength": {"signal": "clamp(height, 64, 200)"}
+    }
+  ],
+  "config": {}
+}
