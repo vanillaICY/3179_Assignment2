@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Week 9 Visualization</title>
+    <!-- Load Vega -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  </head>
+  <body>
+    <h2>Week 9 Homework – Visualization</h2>
+    <div id="vis"></div>
+
+    <script>
+      vegaEmbed('#vis', 'visualization.vg.json').then(function(result) {
+        // You can interact with the Vega view instance as result.view
+      }).catch(console.error);
+    </script>
+  </body>
+</html>
