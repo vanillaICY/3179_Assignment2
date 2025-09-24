@@ -1,16 +1,16 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "title": "Visitors in Australia (24-25)",
+  "title": "Visitors% in Australia of each state (24-25)",
   "width": 500,
   "height": 300,
-  "projection": {"type": "identity", "reflectY": true},
+  "projection": { "type": "mercator" },
   "layer": [
     {
       "data": {
         "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/ne_110m_ocean.json",
-        "format": {"type": "topojson", "feature": "ne_110m_ocean"}
+        "format": { "type": "topojson", "feature": "ne_110m_ocean" }
       },
-      "mark": {"type": "geoshape", "fill": "#a2d7ec", "stroke": null}
+      "mark": { "type": "geoshape", "fill": "#a2d7ec", "stroke": null }
     },
     {
       "data": {
@@ -28,16 +28,17 @@
               "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_2024_25.csv"
             },
             "key": "State",
-            "fields": ["Percentage", "Arrivals"]
+            "fields": ["Arrivals"]
           }
-        }
+        },
+        { "calculate": "datum.Arrivals /8402400 * 100", "as": "Percentage" }
       ],
-      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 2},
+      "mark": { "type": "geoshape", "stroke": "white", "strokeWidth": 2 },
       "encoding": {
         "color": {
           "field": "Percentage",
           "type": "quantitative",
-          "title": "# Arrivals (24-25)"
+          "title": "Arrivals%"
         },
         "tooltip": [
           {
@@ -59,6 +60,13 @@
           }
         ]
       }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/ne_110m_graticules_10%20(Aus).json",
+        "format": { "type": "topojson", "feature": "ne_110m_graticules_10" }
+      },
+      "mark": { "type": "geoshape", "stroke": "lightpink", "strokeWidth": 1.5 }
     }
   ],
   "config": {}
