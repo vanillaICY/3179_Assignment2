@@ -1,4 +1,4 @@
-﻿state,Year,Arriavls,Percentage,
+﻿State,Months,Arriavls,Percentage,
 New South Wales,2024-7,234450,35.58257069,
 Victoria,2024-7,161390,24.49422514,
 Queensland,2024-7,171360,26.00737604,
@@ -95,5 +95,6 @@ Western Australia,2025-6,70570,11.3006021,
 Tasmania,2025-6,4990,0.799064822,
 Northern Territory,2025-6,7090,1.135344607,
 Australian Capital Territory,2025-6,6950,1.112925954,
+
 
 
