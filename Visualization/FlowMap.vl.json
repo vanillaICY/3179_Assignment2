@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": "Top 10 Arrivals Source Countries",
+    "fontSize": 30,
+    "fontWeight": "bold",
+    "font": "sans-serif"
+  },
+  "width": 900,
+  "height": 520,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#a2d7ec", "stroke": null}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/ne_110m_admin_0_countries.json",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#efefef",
+        "stroke": "#ccc",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/flowmapdata.csv"
+      },
+      "mark": {"type": "rule", "strokeWidth": 8, "opacity": 0.8},
+      "encoding": {
+        "longitude": {"field": "OriginLA", "type": "quantitative"},
+        "latitude": {"field": "OriginLO", "type": "quantitative"},
+        "longitude2": {"field": "DestLA"},
+        "latitude2": {"field": "DestLO"},
+        "color": {
+          "field": "Visitors",
+          "type": "quantitative",
+          "scale": {"scheme": "yellowgreenblue"},
+          "legend": {
+            "title": "Number of Visitors",
+            "format": ".2s",
+            "orient": "bottom-right"
+          }
+        },
+        "tooltip": [
+          {"field": "Country", "type": "nominal", "title": "From Country"},
+          {"field": "Visitors", "type": "quantitative", "title": "Visitors"}
+        ]
+      }
+    },
+    {
+      "data": {"graticule": {"step": [30, 30]}},
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#3794d679",
+        "strokeWidth": 0.8,
+        "fill": null
+      }
+    }
+  ],
+  "config": {}
+}
