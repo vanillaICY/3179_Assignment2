@@ -1,0 +1,205 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "null",
+  "padding": 5,
+  "height": 300,
+  "title": {
+    "text": "Tourism consumption ($b)",
+    "fontSize": 22,
+    "fontWeight": "bold",
+    "font": "sans-serif",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {"name": "hoverSeg_store"},
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/tourism_consumption_au.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Financial year", "Type"],
+          "ops": ["sum"],
+          "fields": ["Value_billion_AUD"],
+          "as": ["sum_Value_billion_AUD"]
+        },
+        {
+          "type": "stack",
+          "groupby": ["Financial year"],
+          "field": "sum_Value_billion_AUD",
+          "sort": {"field": ["Type"], "order": ["ascending"]},
+          "as": ["sum_Value_billion_AUD_start", "sum_Value_billion_AUD_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"sum_Value_billion_AUD\"]) && isFinite(+datum[\"sum_Value_billion_AUD\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {"name": "x_step", "value": 20},
+    {
+      "name": "width",
+      "update": "bandspace(domain('x').length, 0.1, 0.05) * x_step"
+    },
+    {
+      "name": "unit",
+      "value": {},
+      "on": [
+        {"events": "pointermove", "update": "isTuple(group()) ? group() : unit"}
+      ]
+    },
+    {
+      "name": "hoverSeg",
+      "update": "vlSelectionResolve(\"hoverSeg_store\", \"union\", true, true)"
+    },
+    {
+      "name": "hoverSeg_tuple",
+      "on": [
+        {
+          "events": [{"source": "scope", "type": "pointerover"}],
+          "update": "datum && item().mark.marktype !== 'group' && indexof(item().mark.role, 'legend') < 0 ? {unit: \"\", fields: hoverSeg_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"Financial year\"], (item().isVoronoi ? datum.datum : datum)[\"Type\"]]} : null",
+          "force": true
+        },
+        {"events": [{"source": "view", "type": "pointerout"}], "update": "null"}
+      ]
+    },
+    {
+      "name": "hoverSeg_tuple_fields",
+      "value": [
+        {"type": "E", "field": "Financial year"},
+        {"type": "E", "field": "Type"}
+      ]
+    },
+    {
+      "name": "hoverSeg_toggle",
+      "value": false,
+      "on": [
+        {
+          "events": [{"source": "scope", "type": "pointerover"}],
+          "update": "event.shiftKey"
+        },
+        {
+          "events": [{"source": "view", "type": "pointerout"}],
+          "update": "false"
+        }
+      ]
+    },
+    {
+      "name": "hoverSeg_modify",
+      "on": [
+        {
+          "events": {"signal": "hoverSeg_tuple"},
+          "update": "modify(\"hoverSeg_store\", hoverSeg_toggle ? null : hoverSeg_tuple, hoverSeg_toggle ? null : true, hoverSeg_toggle ? hoverSeg_tuple : null)"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "rect",
+      "style": ["bar"],
+      "interactive": true,
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Type"},
+          "opacity": [
+            {
+              "test": "!length(data(\"hoverSeg_store\")) || vlSelectionTest(\"hoverSeg_store\", datum)",
+              "value": 1
+            },
+            {"value": 0.6}
+          ],
+          "tooltip": {
+            "signal": "{\"Financial year\": isValid(datum[\"Financial year\"]) ? datum[\"Financial year\"] : \"\"+datum[\"Financial year\"], \"Type\": isValid(datum[\"Type\"]) ? datum[\"Type\"] : \"\"+datum[\"Type\"], \"Value ($b)\": format(datum[\"sum_Value_billion_AUD\"], \".3f\")}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"Financial year: \" + (isValid(datum[\"Financial year\"]) ? datum[\"Financial year\"] : \"\"+datum[\"Financial year\"]) + \"; Tourism consumption ($b): \" + (format(datum[\"sum_Value_billion_AUD\"], \"\")) + \"; Type: \" + (isValid(datum[\"Type\"]) ? datum[\"Type\"] : \"\"+datum[\"Type\"]) + \"; Value ($b): \" + (format(datum[\"sum_Value_billion_AUD\"], \".3f\"))"
+          },
+          "x": {"scale": "x", "field": "Financial year"},
+          "width": {"signal": "max(0.25, bandwidth('x'))"},
+          "y": {"scale": "y", "field": "sum_Value_billion_AUD_end"},
+          "y2": {"scale": "y", "field": "sum_Value_billion_AUD_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {"data": "source_0", "field": "Financial year", "sort": true},
+      "range": {"step": {"signal": "x_step"}},
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "data": "source_0",
+        "fields": ["sum_Value_billion_AUD_start", "sum_Value_billion_AUD_end"]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source_0", "field": "Type", "sort": true},
+      "range": {"scheme": "blues"}
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Financial year",
+      "labelAlign": "right",
+      "labelAngle": 270,
+      "labelBaseline": "middle",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Tourism consumption ($b)",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "legends": [
+    {
+      "title": "Type",
+      "fill": "color",
+      "symbolType": "square",
+      "encode": {"symbols": {"update": {"opacity": {"value": 1}}}}
+    }
+  ],
+  "config": {}
+}

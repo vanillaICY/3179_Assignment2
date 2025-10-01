@@ -1,0 +1,196 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "null",
+  "padding": 5,
+  "title": {
+    "text": "Arrivals to Australia by Sex (Yr14-15 & Yr24-25)",
+    "fontSize": 20,
+    "fontWeight": "bold",
+    "fontStyle": "sans-serif",
+    "anchor": "start"
+  },
+  "data": [
+    {
+      "name": "source_0",
+      "values": [
+        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570}
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "{'female': '🚺', 'male': '🚹'}[datum.Sex]",
+          "as": "emoji"
+        },
+        {
+          "type": "window",
+          "params": [null],
+          "as": ["rank"],
+          "ops": ["rank"],
+          "fields": [null],
+          "sort": {"field": [], "order": []},
+          "groupby": ["Year", "Sex"]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"rank\"]) && isFinite(+datum[\"rank\"])"
+        }
+      ]
+    },
+    {
+      "name": "row_domain",
+      "source": "data_0",
+      "transform": [{"type": "aggregate", "groupby": ["Year"]}]
+    }
+  ],
+  "signals": [
+    {"name": "child_width", "value": 600},
+    {"name": "child_height", "value": 200}
+  ],
+  "layout": {"padding": 20, "columns": 1, "bounds": "full", "align": "all"},
+  "marks": [
+    {
+      "name": "row_header",
+      "type": "group",
+      "role": "row-header",
+      "from": {"data": "row_domain"},
+      "sort": {"field": "datum[\"Year\"]", "order": "ascending"},
+      "title": {
+        "text": {
+          "signal": "isValid(parent[\"Year\"]) ? parent[\"Year\"] : \"\"+parent[\"Year\"]"
+        },
+        "orient": "left",
+        "style": "guide-label",
+        "frame": "group",
+        "offset": 10
+      },
+      "encode": {"update": {"height": {"signal": "child_height"}}}
+    },
+    {
+      "name": "column_footer",
+      "type": "group",
+      "role": "column-footer",
+      "encode": {"update": {"width": {"signal": "child_width"}}},
+      "axes": [
+        {
+          "scale": "x",
+          "orient": "bottom",
+          "grid": false,
+          "title": "Icons (each ≈ 0.45M Arivvals)",
+          "tickMinStep": 1,
+          "values": [0, 5, 10],
+          "labelFlush": true,
+          "labelOverlap": true,
+          "zindex": 0
+        }
+      ]
+    },
+    {
+      "name": "cell",
+      "type": "group",
+      "style": "cell",
+      "from": {
+        "facet": {"name": "facet", "data": "data_0", "groupby": ["Year"]}
+      },
+      "sort": {"field": ["datum[\"Year\"]"], "order": ["ascending"]},
+      "encode": {
+        "update": {
+          "width": {"signal": "child_width"},
+          "height": {"signal": "child_height"}
+        }
+      },
+      "marks": [
+        {
+          "name": "child_marks",
+          "type": "text",
+          "style": ["text"],
+          "from": {"data": "facet"},
+          "encode": {
+            "update": {
+              "baseline": {"value": "middle"},
+              "fill": {"value": "black"},
+              "tooltip": {
+                "signal": "{\"Sex\": isValid(datum[\"Sex\"]) ? datum[\"Sex\"] : \"\"+datum[\"Sex\"], \"Arrivals\": format(datum[\"Arrivals\"], \",\")}"
+              },
+              "description": {
+                "signal": "\"rank: \" + (format(datum[\"rank\"], \"\")) + \"; Sex: \" + (isValid(datum[\"Sex\"]) ? datum[\"Sex\"] : \"\"+datum[\"Sex\"]) + \"; emoji: \" + (isValid(datum[\"emoji\"]) ? datum[\"emoji\"] : \"\"+datum[\"emoji\"]) + \"; Arrivals: \" + (format(datum[\"Arrivals\"], \",\"))"
+              },
+              "x": {"scale": "x", "field": "rank"},
+              "y": {"scale": "y", "field": "Sex"},
+              "text": {
+                "signal": "isValid(datum[\"emoji\"]) ? datum[\"emoji\"] : \"\"+datum[\"emoji\"]"
+              },
+              "fontSize": {"value": 60},
+              "align": {"value": "center"}
+            }
+          }
+        }
+      ],
+      "axes": [
+        {
+          "scale": "x",
+          "orient": "bottom",
+          "tickMinStep": 1,
+          "values": [0, 5, 10],
+          "gridScale": "y",
+          "grid": true,
+          "domain": false,
+          "labels": false,
+          "aria": false,
+          "maxExtent": 0,
+          "minExtent": 0,
+          "ticks": false,
+          "zindex": 0
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": [0, 10],
+      "range": [0, {"signal": "child_width"}],
+      "zero": true
+    },
+    {
+      "name": "y",
+      "type": "point",
+      "domain": {"data": "data_0", "field": "Sex"},
+      "range": [0, {"signal": "child_height"}],
+      "padding": 0.5
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": ""}}}
+}

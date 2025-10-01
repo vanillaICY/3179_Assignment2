@@ -1,0 +1,237 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "null",
+  "padding": 5,
+  "width": 600,
+  "height": 400,
+  "title": {
+    "text": "Monthly Visitor Arrivals% by AUS State (Jul 2024 - Jun 2025)",
+    "fontSize": 22,
+    "fontWeight": "bold",
+    "font": "sans-serif",
+    "frame": "group"
+  },
+  "style": "view",
+  "data": [
+    {"name": "source_0", "values": [{"type": "Sphere"}]},
+    {
+      "name": "source_1",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/main/data/ne_50m_admin_1_states_provinces.json",
+      "format": {
+        "type": "topojson",
+        "feature": "ne_50m_admin_1_states_provinces"
+      }
+    },
+    {
+      "name": "data_0",
+      "source": "source_1",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "'Data is not available in ' + datum.properties.name",
+          "as": "note"
+        }
+      ]
+    },
+    {
+      "name": "source_2",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/Visitors.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "source_1",
+          "key": "properties.name",
+          "fields": ["State"],
+          "as": ["geo"]
+        },
+        {
+          "type": "formula",
+          "expr": "datum.Percentage / 100",
+          "as": "PercentageD"
+        },
+        {"type": "filter", "expr": "datum.Month == Month_selection"},
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"Percentage\"]) && isFinite(+datum[\"Percentage\"])"
+        }
+      ]
+    },
+    {
+      "name": "source_3",
+      "transform": [
+        {
+          "type": "graticule",
+          "step": [10, 10],
+          "extent": [[90, -60], [200, 10]]
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "translate": {"signal": "[width / 2, height / 2]"},
+      "type": "mercator",
+      "center": {"signal": "center_to"},
+      "scale": {"signal": "zoom_level"}
+    }
+  ],
+  "signals": [
+    {
+      "name": "Month_selection",
+      "value": "1",
+      "bind": {
+        "input": "range",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "name": "Month: "
+      }
+    },
+    {
+      "name": "zoom_level",
+      "value": 650,
+      "bind": {
+        "input": "range",
+        "min": 500,
+        "max": 2000,
+        "step": 50,
+        "name": "Zoom: "
+      }
+    },
+    {
+      "name": "center_to",
+      "value": [134, -26],
+      "bind": {
+        "input": "select",
+        "options": [
+          [134, -26],
+          [145, -37.95],
+          [152, -33],
+          [153, -20],
+          [125, -26],
+          [134, -20],
+          [136, -31],
+          [153, -35],
+          [150, -40]
+        ],
+        "labels": [
+          "Select All",
+          "Victoria",
+          "New South Wales",
+          "Queensland",
+          "Western Australia",
+          "Northern Territory",
+          "South Australia",
+          "Australian Capital Territory",
+          "Tasmania"
+        ],
+        "name": "Map Centre: "
+      }
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "shape",
+      "clip": true,
+      "style": ["geoshape"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#aedbec"},
+          "stroke": {"value": null},
+          "ariaRoleDescription": {"value": "geoshape"}
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "shape",
+      "clip": true,
+      "style": ["geoshape"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "fill": {"value": "#ddd"},
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 1},
+          "tooltip": {
+            "signal": "isValid(datum[\"note\"]) ? datum[\"note\"] : \"\"+datum[\"note\"]"
+          },
+          "ariaRoleDescription": {"value": "geoshape"},
+          "description": {
+            "signal": "\"note: \" + (isValid(datum[\"note\"]) ? datum[\"note\"] : \"\"+datum[\"note\"])"
+          }
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    },
+    {
+      "name": "layer_2_marks",
+      "type": "shape",
+      "clip": true,
+      "style": ["geoshape"],
+      "from": {"data": "source_2"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "gray"},
+          "strokeWidth": {"value": 1.5},
+          "fill": {"scale": "color", "field": "Percentage"},
+          "tooltip": {
+            "signal": "{\"State/Territory\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Month\": isValid(datum[\"Month\"]) ? datum[\"Month\"] : \"\"+datum[\"Month\"], \"Percentage (%)\": format(datum[\"Percentage\"], \".1f\"), \"Arrivals\": format(datum[\"Arriavls\"], \",\")}"
+          },
+          "ariaRoleDescription": {"value": "geoshape"},
+          "description": {
+            "signal": "\"Arrivals (%): \" + (format(datum[\"Percentage\"], \"\")) + \"; geo: \" + (isValid(datum[\"geo\"]) ? datum[\"geo\"] : \"\"+datum[\"geo\"]) + \"; State/Territory: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Month: \" + (isValid(datum[\"Month\"]) ? datum[\"Month\"] : \"\"+datum[\"Month\"]) + \"; Percentage (%): \" + (format(datum[\"Percentage\"], \".1f\")) + \"; Arrivals: \" + (format(datum[\"Arriavls\"], \",\"))"
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "geoshape",
+          "projection": "projection",
+          "field": "datum[\"geo\"]"
+        }
+      ]
+    },
+    {
+      "name": "layer_3_marks",
+      "type": "shape",
+      "clip": true,
+      "style": ["geoshape"],
+      "from": {"data": "source_3"},
+      "encode": {
+        "update": {
+          "stroke": {"value": "#3794d679"},
+          "strokeWidth": {"value": 1},
+          "fill": {"value": "transparent"},
+          "ariaRoleDescription": {"value": "geoshape"}
+        }
+      },
+      "transform": [{"type": "geoshape", "projection": "projection"}]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "threshold",
+      "domain": [1, 5, 10, 15, 20, 25, 30, 35, 40],
+      "range": "heatmap",
+      "interpolate": "hcl"
+    }
+  ],
+  "legends": [
+    {
+      "format": "",
+      "title": "Arrivals (%)",
+      "fill": "color",
+      "labelOverlap": "greedy",
+      "symbolType": "circle",
+      "encode": {"symbols": {"update": {"stroke": {"value": "gray"}}}}
+    }
+  ],
+  "config": {}
+}

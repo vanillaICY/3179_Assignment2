@@ -1,0 +1,494 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "white",
+  "padding": 5,
+  "width": 300,
+  "height": 300,
+  "style": "cell",
+  "data": [
+    {"name": "pt_store"},
+    {
+      "name": "linehover_store",
+      "values": [
+        {
+          "unit": "layer_0",
+          "fields": [{"type": "E", "field": "Year"}],
+          "values": ["2024-25"]
+        }
+      ]
+    },
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/short_term_arrivals_long.csv",
+      "format": {"type": "csv", "parse": {"Month": "number"}, "delimiter": ","}
+    },
+    {
+      "name": "data_1",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"Month\"]) && isFinite(+datum[\"Month\"]) && isValid(datum[\"Arrivals\"]) && isFinite(+datum[\"Arrivals\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_2",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Year"],
+          "ops": ["max", "argmax"],
+          "fields": ["Month", "Month"],
+          "as": ["max_Month", "argmax_Month"]
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"max_Month\"]) && isFinite(+datum[\"max_Month\"]) && isValid(datum[\"argmax_Month\"][\"Arrivals\"]) && isFinite(+datum[\"argmax_Month\"][\"Arrivals\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "unit",
+      "value": {},
+      "on": [
+        {"events": "pointermove", "update": "isTuple(group()) ? group() : unit"}
+      ]
+    },
+    {
+      "name": "linehover",
+      "update": "vlSelectionResolve(\"linehover_store\", \"union\", true, true)"
+    },
+    {
+      "name": "pt",
+      "update": "vlSelectionResolve(\"pt_store\", \"union\", true, true)"
+    },
+    {
+      "name": "linehover_tuple",
+      "on": [
+        {
+          "events": [{"source": "scope", "type": "pointerover"}],
+          "update": "datum && item().mark.marktype !== 'group' && indexof(item().mark.role, 'legend') < 0 ? {unit: \"layer_0\", fields: linehover_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"Year\"]]} : null",
+          "force": true
+        },
+        {"events": [{"source": "view", "type": "dblclick"}], "update": "null"}
+      ]
+    },
+    {
+      "name": "linehover_tuple_fields",
+      "value": [{"type": "E", "field": "Year"}]
+    },
+    {
+      "name": "linehover_toggle",
+      "value": false,
+      "on": [
+        {
+          "events": [{"source": "scope", "type": "pointerover"}],
+          "update": "event.shiftKey"
+        },
+        {"events": [{"source": "view", "type": "dblclick"}], "update": "false"}
+      ]
+    },
+    {
+      "name": "linehover_modify",
+      "on": [
+        {
+          "events": {"signal": "linehover_tuple"},
+          "update": "modify(\"linehover_store\", linehover_toggle ? null : linehover_tuple, linehover_toggle ? null : true, linehover_toggle ? linehover_tuple : null)"
+        }
+      ]
+    },
+    {
+      "name": "pt_tuple",
+      "on": [
+        {
+          "events": [
+            {
+              "source": "scope",
+              "type": "pointerover",
+              "markname": "layer_2_voronoi"
+            }
+          ],
+          "update": "datum && item().mark.marktype !== 'group' && indexof(item().mark.role, 'legend') < 0 ? {unit: \"layer_2\", fields: pt_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"Month\"], (item().isVoronoi ? datum.datum : datum)[\"Arrivals\"]]} : null",
+          "force": true
+        },
+        {"events": [{"source": "view", "type": "pointerout"}], "update": "null"}
+      ]
+    },
+    {
+      "name": "pt_tuple_fields",
+      "value": [
+        {"field": "Month", "channel": "x", "type": "E"},
+        {"field": "Arrivals", "channel": "y", "type": "E"}
+      ]
+    },
+    {
+      "name": "pt_toggle",
+      "value": false,
+      "on": [
+        {
+          "events": [
+            {
+              "source": "scope",
+              "type": "pointerover",
+              "markname": "layer_2_voronoi"
+            }
+          ],
+          "update": "event.shiftKey"
+        },
+        {
+          "events": [{"source": "view", "type": "pointerout"}],
+          "update": "false"
+        }
+      ]
+    },
+    {
+      "name": "pt_modify",
+      "on": [
+        {
+          "events": {"signal": "pt_tuple"},
+          "update": "modify(\"pt_store\", pt_toggle ? null : pt_tuple, pt_toggle ? null : true, pt_toggle ? pt_tuple : null)"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_pathgroup",
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "faceted_path_layer_0_main",
+          "data": "source_0",
+          "groupby": ["Year"]
+        }
+      },
+      "encode": {
+        "update": {
+          "width": {"field": {"group": "width"}},
+          "height": {"field": {"group": "height"}}
+        }
+      },
+      "marks": [
+        {
+          "name": "layer_0_marks",
+          "type": "line",
+          "style": ["line"],
+          "sort": {"field": "x"},
+          "interactive": true,
+          "from": {"data": "faceted_path_layer_0_main"},
+          "encode": {
+            "update": {
+              "stroke": {"value": "transparent"},
+              "strokeWidth": {"value": 8},
+              "opacity": [
+                {
+                  "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+                  "value": 1
+                },
+                {"value": 0.2}
+              ],
+              "description": {
+                "signal": "\"Month: \" + (format(datum[\"Month\"], \"\")) + \"; Arrivals (Million): \" + (format(datum[\"Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
+              },
+              "x": {"scale": "x", "field": "Month"},
+              "y": {"scale": "y", "field": "Arrivals"},
+              "defined": {
+                "signal": "isValid(datum[\"Month\"]) && isFinite(+datum[\"Month\"]) && isValid(datum[\"Arrivals\"]) && isFinite(+datum[\"Arrivals\"])"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "layer_1_pathgroup",
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "faceted_path_layer_1_main",
+          "data": "source_0",
+          "groupby": ["Year"]
+        }
+      },
+      "encode": {
+        "update": {
+          "width": {"field": {"group": "width"}},
+          "height": {"field": {"group": "height"}}
+        }
+      },
+      "marks": [
+        {
+          "name": "layer_1_marks",
+          "type": "line",
+          "style": ["line"],
+          "sort": {"field": "x"},
+          "interactive": false,
+          "from": {"data": "faceted_path_layer_1_main"},
+          "encode": {
+            "update": {
+              "strokeWidth": {"value": 2},
+              "stroke": [
+                {
+                  "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+                  "scale": "color",
+                  "field": "Year"
+                },
+                {"value": "grey"}
+              ],
+              "opacity": [
+                {
+                  "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+                  "value": 1
+                },
+                {"value": 0.2}
+              ],
+              "description": {
+                "signal": "\"Month: \" + (format(datum[\"Month\"], \"\")) + \"; Arrivals (Million): \" + (format(datum[\"Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
+              },
+              "x": {"scale": "x", "field": "Month"},
+              "y": {"scale": "y", "field": "Arrivals"},
+              "defined": {
+                "signal": "isValid(datum[\"Month\"]) && isFinite(+datum[\"Month\"]) && isValid(datum[\"Arrivals\"]) && isFinite(+datum[\"Arrivals\"])"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "layer_2_marks",
+      "type": "symbol",
+      "style": ["circle"],
+      "interactive": true,
+      "from": {"data": "data_1"},
+      "encode": {
+        "update": {
+          "opacity": [
+            {
+              "test": "length(data(\"pt_store\")) && vlSelectionTest(\"pt_store\", datum)",
+              "value": 1
+            },
+            {"value": 0}
+          ],
+          "tooltip": {
+            "signal": "{\"Year\": isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"], \"Month\": format(datum[\"Month\"], \"\"), \"Arrivals\": format(datum[\"Arrivals\"], \".2f\")}"
+          },
+          "fill": [
+            {
+              "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+              "scale": "color",
+              "field": "Year"
+            },
+            {"value": "grey"}
+          ],
+          "ariaRoleDescription": {"value": "circle"},
+          "description": {
+            "signal": "\"Month: \" + (format(datum[\"Month\"], \"\")) + \"; Arrivals (Million): \" + (format(datum[\"Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]) + \"; Arrivals: \" + (format(datum[\"Arrivals\"], \".2f\"))"
+          },
+          "x": {"scale": "x", "field": "Month"},
+          "y": {"scale": "y", "field": "Arrivals"},
+          "size": [
+            {
+              "test": "length(data(\"pt_store\")) && vlSelectionTest(\"pt_store\", datum)",
+              "value": 90
+            },
+            {"value": 100}
+          ],
+          "shape": {"value": "circle"}
+        }
+      }
+    },
+    {
+      "name": "layer_2_voronoi",
+      "type": "path",
+      "interactive": true,
+      "from": {"data": "layer_2_marks"},
+      "encode": {
+        "update": {
+          "fill": {"value": "transparent"},
+          "strokeWidth": {"value": 0.35},
+          "stroke": {"value": "transparent"},
+          "isVoronoi": {"value": true},
+          "tooltip": {
+            "signal": "{\"Year\": isValid(datum.datum[\"Year\"]) ? datum.datum[\"Year\"] : \"\"+datum.datum[\"Year\"], \"Month\": format(datum.datum[\"Month\"], \"\"), \"Arrivals\": format(datum.datum[\"Arrivals\"], \".2f\")}"
+          }
+        }
+      },
+      "transform": [
+        {
+          "type": "voronoi",
+          "x": {"expr": "datum.datum.x || 0"},
+          "y": {"expr": "datum.datum.y || 0"},
+          "size": [{"signal": "width"}, {"signal": "height"}]
+        }
+      ]
+    },
+    {
+      "name": "layer_3_layer_0_marks",
+      "type": "symbol",
+      "style": ["circle"],
+      "interactive": false,
+      "from": {"data": "data_2"},
+      "encode": {
+        "update": {
+          "fill": [
+            {
+              "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+              "scale": "color",
+              "field": "Year"
+            },
+            {"value": "grey"}
+          ],
+          "opacity": [
+            {
+              "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+              "value": 1
+            },
+            {"value": 0.2}
+          ],
+          "ariaRoleDescription": {"value": "circle"},
+          "description": {
+            "signal": "\"Month: \" + (format(datum[\"max_Month\"], \"\")) + \"; Arrivals (Million): \" + (format(datum[\"argmax_Month\"][\"Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
+          },
+          "x": {"scale": "x", "field": "max_Month"},
+          "y": {"scale": "y", "field": "argmax_Month[\"Arrivals\"]"},
+          "shape": {"value": "circle"}
+        }
+      }
+    },
+    {
+      "name": "layer_3_layer_1_marks",
+      "type": "text",
+      "style": ["text"],
+      "interactive": false,
+      "from": {"data": "data_2"},
+      "encode": {
+        "update": {
+          "align": {"value": "left"},
+          "dx": {"value": 4},
+          "fill": [
+            {
+              "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+              "scale": "color",
+              "field": "Year"
+            },
+            {"value": "grey"}
+          ],
+          "opacity": [
+            {
+              "test": "!length(data(\"linehover_store\")) || vlSelectionTest(\"linehover_store\", datum)",
+              "value": 1
+            },
+            {"value": 0.2}
+          ],
+          "description": {
+            "signal": "\"Month: \" + (format(datum[\"max_Month\"], \"\")) + \"; Arrivals (Million): \" + (format(datum[\"argmax_Month\"][\"Arrivals\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
+          },
+          "x": {"scale": "x", "field": "max_Month"},
+          "y": {"scale": "y", "field": "argmax_Month[\"Arrivals\"]"},
+          "text": {
+            "signal": "isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]"
+          },
+          "baseline": {"value": "middle"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "source_0", "field": "Month"},
+          {"data": "data_1", "field": "Month"},
+          {"data": "data_2", "field": "max_Month"}
+        ]
+      },
+      "range": [0, {"signal": "width"}],
+      "nice": true,
+      "zero": false
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "source_0", "field": "Arrivals"},
+          {"data": "data_1", "field": "Arrivals"},
+          {"data": "data_2", "field": "argmax_Month[\"Arrivals\"]"}
+        ]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "fields": [
+          {"data": "source_0", "field": "Year"},
+          {"data": "data_1", "field": "Year"},
+          {"data": "data_2", "field": "Year"}
+        ],
+        "sort": true
+      },
+      "range": "category"
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "gridScale": "y",
+      "grid": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Month",
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Arrivals (Million)",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "config": {"style": {"cell": {"stroke": null}}}
+}

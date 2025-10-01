@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "config": {"view": {"stroke": ""}},
+  "background": "null",
+  "title": {
+    "text": "Arrivals to Australia by Sex (Yr14-15 & Yr24-25)",
+    "fontSize": 20,
+    "fontWeight": "bold",
+    "fontStyle": "sans-serif"
+  },
+  "width": 600,
+  "height": 200,
+  "data": {
+    "values": [
+      {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+      {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+      {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+      {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+      {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+      {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
+      {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+      {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+      {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+      {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+      {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+      {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
+      {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570}
+    ]
+  },
+  "transform": [
+    {"calculate": "{'female': '🚺', 'male': '🚹'}[datum.Sex]", "as": "emoji"},
+    {"window": [{"op": "rank", "as": "rank"}], "groupby": ["Year", "Sex"]}
+  ],
+  "mark": {"type": "text", "baseline": "middle"},
+  "encoding": {
+    "x": {
+      "field": "rank",
+      "type": "quantitative",
+      "scale": {"domain": [0, 10]},
+      "axis": {
+        "title": "Icons (each ≈ 0.45M Arivvals)",
+        "tickMinStep": 1,
+        "values": [0, 5, 10]
+      }
+    },
+    "y": {"field": "Sex", "type": "nominal", "axis": null, "sort": null},
+    "row": {"field": "Year", "header": {"title": ""}},
+    "text": {"field": "emoji", "type": "nominal"},
+    "size": {"value": 60},
+    "tooltip": [
+      {"field": "Sex", "title": "Sex"},
+      {
+        "field": "Arrivals",
+        "type": "quantitative",
+        "title": "Arrivals",
+        "format": ","
+      }
+    ]
+  }
+}
