@@ -1,0 +1,292 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "white",
+  "padding": 5,
+  "width": 500,
+  "height": 300,
+  "title": {
+    "text": "Visitor Arrivals by State (Selected Years)",
+    "fontSize": 22,
+    "fontWeight": "bold",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {"name": "stateSel_store"},
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_stream.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "datum[\"Year\"]===\"2014-15\" ? 0 : datum[\"Year\"]===\"2018-19\" ? 1 : datum[\"Year\"]===\"2023-24\" ? 2 : datum[\"Year\"]===\"2024-25\" ? 3 : 4",
+          "as": "x_Year_sort_index"
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Year", "State", "Arrivals_M"],
+          "ops": ["sum"],
+          "fields": ["ArrivalsM"],
+          "as": ["sum_ArrivalsM"]
+        },
+        {
+          "type": "impute",
+          "field": "sum_ArrivalsM",
+          "groupby": ["State", "State"],
+          "key": "Year",
+          "method": "value",
+          "value": 0
+        },
+        {
+          "type": "stack",
+          "groupby": ["Year"],
+          "field": "sum_ArrivalsM",
+          "sort": {"field": ["State"], "order": ["ascending"]},
+          "as": ["sum_ArrivalsM_start", "sum_ArrivalsM_end"],
+          "offset": "center"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "unit",
+      "value": {},
+      "on": [
+        {"events": "pointermove", "update": "isTuple(group()) ? group() : unit"}
+      ]
+    },
+    {
+      "name": "stateSel_State_legend",
+      "value": null,
+      "on": [
+        {
+          "events": [
+            {
+              "source": "view",
+              "type": "click",
+              "markname": "State_legend_symbols"
+            },
+            {
+              "source": "view",
+              "type": "click",
+              "markname": "State_legend_labels"
+            },
+            {
+              "source": "view",
+              "type": "click",
+              "markname": "State_legend_entries"
+            }
+          ],
+          "update": "isDefined(datum.value) ? datum.value : item().items[0].items[0].datum.value",
+          "force": true
+        },
+        {
+          "events": [{"source": "view", "type": "click"}],
+          "update": "!event.item || !datum ? null : stateSel_State_legend",
+          "force": true
+        }
+      ]
+    },
+    {
+      "name": "stateSel",
+      "update": "vlSelectionResolve(\"stateSel_store\", \"union\", true, true)"
+    },
+    {
+      "name": "stateSel_tuple",
+      "update": "stateSel_State_legend !== null ? {fields: stateSel_tuple_fields, values: [stateSel_State_legend]} : null"
+    },
+    {
+      "name": "stateSel_tuple_fields",
+      "value": [{"type": "E", "field": "State"}]
+    },
+    {
+      "name": "stateSel_toggle",
+      "value": false,
+      "on": [
+        {
+          "events": {"merge": [{"source": "view", "type": "click"}]},
+          "update": "event.shiftKey"
+        }
+      ]
+    },
+    {
+      "name": "stateSel_modify",
+      "on": [
+        {
+          "events": {"signal": "stateSel_tuple"},
+          "update": "modify(\"stateSel_store\", stateSel_toggle ? null : stateSel_tuple, stateSel_toggle ? null : true, stateSel_toggle ? stateSel_tuple : null)"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "pathgroup",
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "faceted_path_main",
+          "data": "data_0",
+          "groupby": ["State", "State"]
+        }
+      },
+      "encode": {
+        "update": {
+          "width": {"field": {"group": "width"}},
+          "height": {"field": {"group": "height"}}
+        }
+      },
+      "marks": [
+        {
+          "name": "marks",
+          "type": "area",
+          "style": ["area"],
+          "sort": {"field": "x"},
+          "interactive": true,
+          "from": {"data": "faceted_path_main"},
+          "encode": {
+            "update": {
+              "interpolate": {"value": "monotone"},
+              "orient": {"value": "vertical"},
+              "fill": {"scale": "color", "field": "State"},
+              "opacity": [
+                {
+                  "test": "!length(data(\"stateSel_store\")) || vlSelectionTest(\"stateSel_store\", datum)",
+                  "value": 1
+                },
+                {"value": 0.25}
+              ],
+              "tooltip": {
+                "signal": "{\"Year\": isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"], \"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Arrivals (M)\": format(datum[\"Arrivals_M\"], \".2f\")}"
+              },
+              "description": {
+                "signal": "\"Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]) + \"; Sum of ArrivalsM: \" + (format(datum[\"sum_ArrivalsM\"], \"\")) + \"; State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Arrivals (M): \" + (format(datum[\"Arrivals_M\"], \".2f\"))"
+              },
+              "x": {"scale": "x", "field": "Year"},
+              "y": {"scale": "y", "field": "sum_ArrivalsM_end"},
+              "y2": {"scale": "y", "field": "sum_ArrivalsM_start"},
+              "defined": {
+                "signal": "isValid(datum[\"sum_ArrivalsM\"]) && isFinite(+datum[\"sum_ArrivalsM\"])"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "domain": {
+        "data": "source_0",
+        "field": "Year",
+        "sort": {"op": "min", "field": "x_Year_sort_index"}
+      },
+      "range": [0, {"signal": "width"}],
+      "paddingOuter": 0.35,
+      "padding": 0.5
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "data": "data_0",
+        "fields": ["sum_ArrivalsM_start", "sum_ArrivalsM_end"]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "data_0", "field": "State", "sort": true},
+      "range": {"scheme": "spectral"}
+    }
+  ],
+  "axes": [
+    {
+      "scale": "y",
+      "orient": "left",
+      "gridScale": "x",
+      "grid": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "domain": false,
+      "labels": false,
+      "aria": false,
+      "maxExtent": 0,
+      "minExtent": 0,
+      "ticks": false,
+      "zindex": 0
+    },
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Year",
+      "labelAngle": 0,
+      "labelPadding": 6,
+      "labelBaseline": "top",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Visitor arrivals (Millions)",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "legends": [
+    {
+      "title": "State",
+      "fill": "color",
+      "symbolType": "circle",
+      "encode": {
+        "labels": {
+          "name": "State_legend_labels",
+          "interactive": true,
+          "update": {
+            "opacity": [
+              {
+                "test": "(!length(data(\"stateSel_store\")) || (stateSel[\"State\"] && indexof(stateSel[\"State\"], datum.value) >= 0))",
+                "value": 1
+              },
+              {"value": 0.35}
+            ]
+          }
+        },
+        "symbols": {
+          "name": "State_legend_symbols",
+          "interactive": true,
+          "update": {
+            "opacity": [
+              {
+                "test": "(!length(data(\"stateSel_store\")) || (stateSel[\"State\"] && indexof(stateSel[\"State\"], datum.value) >= 0))",
+                "value": 1
+              },
+              {"value": 0.35}
+            ]
+          }
+        },
+        "entries": {
+          "name": "State_legend_entries",
+          "interactive": true,
+          "update": {"fill": {"value": "transparent"}}
+        }
+      }
+    }
+  ],
+  "config": {}
+}
