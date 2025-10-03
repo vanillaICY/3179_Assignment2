@@ -3,6 +3,12 @@
   "background": "white",
   "width": 300,
   "height": 300,
+  "title": {
+    "text": "Overall Visitor Arrivals",
+    "fontSize": 14,
+    "fontWeight": "bold",
+    "font": "sans-serif"
+  },
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/short_term_arrivals_long.csv"
   },
