@@ -6,6 +6,10 @@
 
     <title>Visitor Arrivals in Australia</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
@@ -31,15 +35,15 @@
   <body>
     <!-- Row 1 -->
     <div class="pure-g row">
-      <div class="pure-u-1">
-        <h1>Row 1: Banner / Title</h1>
+      <div class="pure-u-1-1">
+        <h1>Tourism of Australia</h1>
+        <p>Here is a brief introduction/overview of the tourism of Asutralia</p>
       </div>
     </div>
 
     <!-- Row 2 -->
     <div class="pure-g row">
-      <div class="pure-u-1-2"><p>Row 2 Left</p></div>
-      <div class="pure-u-1-2"><p>Row 2 Right</p></div>
+      <div id="vis2" class="vis-container"></div>
     </div>
 
     <!-- Row 3 -->
@@ -68,5 +72,22 @@
     <div class="pure-g row">
       <div class="pure-u-1"><p>Row 7: footer</p></div>
     </div>
+
+    <script type="text/javascript">
+      vegaEmbed("#vis1", "visualization/Choropleth.vl.json", {
+        actions: false,
+      });
+      vegaEmbed("#vis2", "visualization/Flow.vl.json", { actions: false });
+      vegaEmbed("#vis3", "visualization/LineChart.vl.json", { actions: false });
+      vegaEmbed("#vis4", "visualization/RadialChart.vl.json", {
+        actions: false,
+      });
+      vegaEmbed("#vis5", "visualization/SexDotChart.vl.json", {
+        actions: false,
+      });
+      vegaEmbed("#vis6", "visualization/StackBar.vl.json", { actions: false });
+      vegaEmbed("#vis7", "visualization/Stream.vl.json", { actions: false });
+    </script>
+    "
   </body>
 </html>
