@@ -6,7 +6,7 @@
   "background": "white",
   "title": {
     "text": "Tourism consumption ($b)",
-    "fontSize": 22,
+    "fontSize": 14,
     "fontWeight": "bold",
     "font": "sans-serif"
   },

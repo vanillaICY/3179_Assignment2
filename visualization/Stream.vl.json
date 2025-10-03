@@ -5,16 +5,16 @@
     "fontSize": 22,
     "fontWeight": "bold"
   },
-  "width": 500,
+  "width": 300,
   "height": 300,
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_stream.csv"
   },
-  "mark": {"type": "area", "interpolate": "monotone"},
+  "mark": { "type": "area", "interpolate": "monotone" },
   "params": [
     {
       "name": "stateSel",
-      "select": {"type": "point", "fields": ["State"]},
+      "select": { "type": "point", "fields": ["State"] },
       "bind": "legend"
     }
   ],
@@ -23,29 +23,32 @@
       "field": "Year",
       "type": "ordinal",
       "sort": ["2014-15", "2018-19", "2023-24", "2024-25"],
-      "axis": {"title": "Year", "labelAngle": 0, "labelPadding": 6},
-      "scale": {"paddingInner": 0.7, "paddingOuter": 0.35}
+      "axis": { "title": "Year", "labelAngle": 0, "labelPadding": 6 },
+      "scale": { "paddingInner": 0.7, "paddingOuter": 0.35 }
     },
     "y": {
       "aggregate": "sum",
       "field": "ArrivalsM",
       "type": "quantitative",
       "stack": "center",
-      "axis": {"title": "Visitor arrivals (Millions)"}
+      "axis": { "title": "Visitor arrivals (Millions)" }
     },
     "color": {
       "field": "State",
       "type": "nominal",
       "title": "State",
-      "scale": {"scheme": "spectral"}
+      "scale": { "scheme": "spectral" }
     },
-    "opacity": {"condition": {"param": "stateSel", "value": 1}, "value": 0.25},
+    "opacity": {
+      "condition": { "param": "stateSel", "value": 1 },
+      "value": 0.25
+    },
     "tooltip": [
-      {"field": "Year", "title": "Year"},
-      {"field": "State", "title": "State"},
-      {"field": "Arrivals_M", "title": "Arrivals (M)", "format": ".2f"}
+      { "field": "Year", "title": "Year" },
+      { "field": "State", "title": "State" },
+      { "field": "Arrivals_M", "title": "Arrivals (M)", "format": ".2f" }
     ],
-    "order": {"field": "State"}
+    "order": { "field": "State" }
   },
   "config": {}
 }

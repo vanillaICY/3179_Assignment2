@@ -1,6 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "background": "white",
+  "width": 300,
+  "height": 300,
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/short_term_arrivals_long.csv"
   },

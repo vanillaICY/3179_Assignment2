@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
     "text": "Purpose of Visitor Arrivals (%)",
-    "fontSize": 22,
+    "fontSize": 14,
     "fontWeight": "bold",
     "font": "sans-serif"
   },

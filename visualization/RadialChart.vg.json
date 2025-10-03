@@ -6,7 +6,7 @@
   "height": 300,
   "title": {
     "text": "Purpose of Visitor Arrivals (%)",
-    "fontSize": 22,
+    "fontSize": 14,
     "fontWeight": "bold",
     "font": "sans-serif",
     "frame": "group"
