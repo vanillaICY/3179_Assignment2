@@ -2,11 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
     "text": "Visitor Arrivals by State (Selected Years)",
-    "fontSize": 22,
+    "fontSize": 14,
     "fontWeight": "bold"
   },
-  "width": 300,
-  "height": 300,
+  "width": 900,
+  "height": 100,
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_stream.csv"
   },

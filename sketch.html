@@ -6,9 +6,9 @@
 
     <title>Visitor Arrivals in Australia</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
     <link
       rel="stylesheet"
@@ -26,7 +26,7 @@
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css"
+      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
     />
 
     <link rel="stylesheet" href="style.css" />
@@ -37,52 +37,106 @@
       <!-- Row 1 -->
       <div class="pure-g">
         <div class="pure-u-1-1">
-          <h1>Multiple Visualisations</h1>
-          <p>This page demonstrates how you can use pure.css grid for your layout.</p>
-        </div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="pure-g row">
-        <!-- Map: 2/3 on medium+ screens, full width on phones -->
-        <div class="pure-u-1 pure-u-md-2-3">
-          <div id="vis1" class="vis-container"></div>
-        </div>
-      
-        <!-- Text: 1/3 on medium+ screens, full width on phones -->
-        <div class="pure-u-1 pure-u-md-1-3">
-          <h2>Choropleth Map</h2>
+          <h1>Wandering Down Under: Exploring Australian Tourism</h1>
+          <h3>Abstract:</h3>
           <p>
-            The right-hand side map is a choropleth map and this first column contains text. 
+            Tourism plays a vital role in shaping Australia's economy, culture,
+            and global identity. Every year, millions of international visitors
+            travel "Down Under" to experience its natural wonders, vibrant
+            cities, and unique wildlife. Beyond leisure, Australia also attracts
+            visitors for education, business, and family reasons, making tourism
+            a diverse and dynamic sector.
           </p>
         </div>
       </div>
 
-      <!-- Row 3 -->
       <div class="pure-g row">
-        <div class="pure-u-1-2">
-          <div class="description description-left">
-            <h2>Visitor Arrivals Charts</h2>
-            <p>
-              This is a text box and there should be two charts in these row.
-            </p>
-          </div> 
-        </div>
-        <div class="pure-u-1-2">
-          <div id="vis3" style="margin-left: 15px"></div>
+        <div class="top">
+          <img
+            src="image/100 Things I Wish Someone Told me Before Moving to Australia.jpg"
+          />
         </div>
       </div>
-      
-      <!-- Row 4 -->
-      <div class="pure-g row">
+
+      <!-- Row 2 -->
+      <div class="pure-g">
+        <!-- Map: 2/3 on medium+ screens, full width on phones -->
+        <div class="pure-u-1-3">
+          <h2>Where Do Visitors Go?</h2>
+          <p>
+            The map highlights how unevenly international visitors are spread
+            across Australia.
+            <br /><br />
+            New South Wales leads with the largest share, reflecting Sydney’s
+            role as the country’s main gateway, while Queensland and Victoria
+            also attract strong flows thanks to their mix of natural icons and
+            cultural appeal. In contrast, smaller states like Tasmania and South
+            Australia capture only a modest share, reinforcing their role as
+            niche destinations.
+            <br /><br />
+            This imbalance isn’t only about tourism, it reflects where
+            infrastructure and global connections are concentrated. Major
+            airports and universities naturally pull arrivals toward the east
+            coast. Yet the smaller states’ distinct offerings—outback landscapes
+            or wine regions diversify Australia’s tourism image.
+            <br /><br />
+            Overall, the data points to a heavy east-coast concentration,
+            showing how geography and economy intersect with holiday choices to
+            shape visitor flows.
+          </p>
+        </div>
+        <div class="pure-u-2-3">
+          <div id="vis1" class="vis-container"></div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="pure-g">
         <div class="pure-u-1-2">
-          <div id="vis7"></div>
+          <div class="description description-left">
+            <h2>Tourism's Rollercoaster Ride</h2>
+            <p>
+              The pandemic hit Australia’s tourism hard, sending arrivals in
+              2021–22 to record lows. Since then, numbers have climbed back
+              steadily as borders reopened and the economy recovered. By
+              2024–25, visitor arrivals are much stronger, though still not
+              quite at the pre-COVID peak seen in 2018–19.
+              <br />
+              <br />
+              This shows both the resilience of the tourism sector and the
+              ongoing influence of global events on travel flows. Overall, the
+              trend suggests Australia is on a solid recovery path, but full
+              normality may still take time.
+            </p>
+          </div>
         </div>
         <div class="pure-u-1-2">
-          <div class="description description-right">
-            <h2>Visitor Arrivals by State<h2>
-            <p>This text box is the analysis of stream chart.</p>
+          <div id="vis3" class="vis-container"></div>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="pure-g row">
+        <div class="pure-u-1 pure-u-md-1-2">
+          <div class="description description-left">
+            <h2>East Coast leads</h2>
+            <p>
+              Just like the state map showed for 2024–25, this longer view
+              highlights how arrivals remain heavily concentrated in New South
+              Wales, Queensland, and Victoria across the years.
+              <br />
+              <br />
+              While the pandemic caused a dip, the overall distribution barely
+              shifted—these states consistently dominate because of their
+              airports, business hubs, and attractions. The smaller states keep
+              a steady but modest share, reinforcing the pattern we saw on the
+              map: tourism in Australia is growing again, but its heart still
+              lies on the east coast
+            </p>
           </div>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+          <div id="vis7" class="vis-container"></div>
         </div>
       </div>
 
@@ -93,15 +147,28 @@
 
       <!-- Row 5 -->
       <div class="pure-g row">
-        <div class="pure-u-1-3">
-          <div id="vis4" class="vis-container"></div>
-        </div>
-        <div class="pure-u-2-3">
-          <h2>Flowmap and RadialChart</h2>
+        <div class="pure-u-1-2">
+          <h2>Who Comes to Australia and Why</h2>
           <p>
-            This text box should have a description about the flowmap and radial
-            chart.
+            Australia’s tourism is shaped by both where visitors come from and
+            what brings them here.
+            <br /><br />
+            The top source countries are mostly in Asia and Europe, reflecting
+            strong regional ties and long-haul connections.
+            <br /><br />
+            Holidaymaking remains the single biggest driver of arrivals, but
+            visiting friends and relatives has grown steadily over recent years,
+            highlighting Australia’s diverse migrant links. Business, education,
+            and conferences play smaller but consistent roles.
+            <br /><br />
+            Together, these charts show that while leisure dominates, tourism is
+            deeply connected to Australia’s international relationships and
+            cultural networks, making it more than just holidays—it’s also about
+            family, study, and global exchange.
           </p>
+        </div>
+        <div class="pure-u-1-2">
+          <div id="vis4" class="vis-container"></div>
         </div>
       </div>
 
@@ -111,25 +178,118 @@
           <div id="vis5" class="vis-container"></div>
         </div>
         <div class="pure-u-1-3">
-          <h2>Isotype dotchart</h2>
-          <p>This text box is about the isotype dot chart</p>
+          <h2>Changing Balance</h2>
+          <p>
+            Tourism patterns don’t just reflect where people come from and
+            why—they also show who is travelling.
+            <br /><br />
+            Looking at visitor arrivals by sex, a clear shift emerges over the
+            past decade. In 2014–15, female arrivals slightly overtook male
+            arrivals for the first time, reversing a long history of male
+            dominance in short-term visits. By 2024–25 this gap has widened
+            further, with over 4.4 million female visitors compared to just
+            under 4 million males.
+            <br /><br />
+            This steady trend suggests that women are increasingly driving
+            international travel to Australia, reflecting broader changes in
+            global mobility, independence, and travel preferences.
+            <br /><br />
+            The data points to a long-term rebalancing of travel demographics.
+            Overall, it shows that female travellers now play a leading role in
+            shaping Australia’s tourism industry.
+          </p>
         </div>
       </div>
 
       <div class="pure-g row">
-        <div class="pure-u-1-3">
+        <div class="pure-u-1-2">
+          <h2>Spending Tells the Story</h2>
+          <p>
+            The stacked bar chart of tourism consumption highlights the
+            financial side of Australia’s visitor economy.
+            <br /><br />
+            Spending dropped sharply in 2020–21 as international travel
+            collapsed, with only domestic tourism keeping the sector afloat.
+            Since then, both domestic and international consumption have
+            rebounded strongly, reaching nearly $200 billion in 2023–24.
+            <br /><br />This shows not just recovery but a renewed confidence in
+            travel, with Australians and overseas visitors alike contributing to
+            the industry’s growth.
+          </p>
+        </div>
+        <div class="pure-u-1-2">
           <div id="vis6" class="vis-container"></div>
         </div>
-        <div class="pure-u-2-3">
-          <h2>StackBar Chart</h2>
-          <p>This text box is about the StackBarChart.</p>
+      </div>
+
+      <div class="pure-g row">
+        <div class="pure-u-3-5">
+          <h2>Overall Conclusion</h2>
+          <p>
+            Looking across all charts, Australia’s tourism story is one of
+            disruption, resilience, and transformation.
+            <br /><br />
+            Visitor arrivals fell dramatically during the pandemic but are
+            steadily climbing back, with female travellers now leading
+            short-term visits.
+            <br />
+            East coast states remain the dominant destinations, though niche
+            markets continue to add diversity. Most arrivals come from Asia and
+            Europe, with purposes split between holidays, family visits, and
+            education.
+            <br /><br />
+            The recovery is also evident in spending, as both domestic and
+            international tourists inject billions into the economy. Overall,
+            the data shows that while pre-COVID peaks remain unmatched,
+            Australia’s tourism sector has adapted and is on a strong path
+            forward.
+          </p>
+        </div>
+        <div class="pure-u-2-5">
+          <div class="inner">
+            <img src="image/download.jpg" alt="Welcome to Australia" />
+          </div>
         </div>
       </div>
 
       <!-- Row 7 -->
       <div class="pure-g row">
         <div class="pure-u-1-1 small-font">
-          <p>This row is for footer (author, date, datasource)</p>
+          <h2>Data Sources & Attribution</h2>
+          <p>
+            This website / report is prepared for FIT3179 - Project 2
+            (Assignment 2), Monash University, with the topic Tourism of
+            Australia.
+            <br />
+            <br />
+            Australian Bureau of Statistics (ABS). Overseas arrivals and
+            departures, Australia - 2024-25 financial year. Released 14 August
+            2025. Available at:
+            https://www.abs.gov.au/articles/overseas-arrivals-and-departures-australia-2024-25-financial-year
+            <br />
+            Note: data refer to short-term international travel (< 1 year).
+            <br />
+            <br />
+            Australian Bureau of Statistics (ABS). Overseas Arrivals and
+            Departures, Australia. Available at:
+            https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia
+            <br />
+            <br />
+            Tourism Research Australia (TRA). Tourism Businesses: Economic
+            Analysis. Available at:
+            https://www.tra.gov.au/en/economic-analysis/tourism-businesses
+            <br />
+            <br />
+            Tourism Research Australia (TRA). International Tourism Results.
+            Available at:
+            https://www.tra.gov.au/en/international/international-tourism-results
+            <br />
+            <br />
+            Last updated: 10 October 2025
+            <br />
+            © [YingyangChen33808635], for Monash University FIT3179. All rights
+            reserved.
+          </p>
         </div>
       </div>
 

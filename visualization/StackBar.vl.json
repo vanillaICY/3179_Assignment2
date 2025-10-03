@@ -3,6 +3,8 @@
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/tourism_consumption_au.csv"
   },
+  "width": 275,
+  "height": 200,
   "background": "white",
   "title": {
     "text": "Tourism consumption ($b)",

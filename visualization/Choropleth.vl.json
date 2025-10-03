@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": "Monthly Visitor Arrivals% by AUS State (Jul 2024 - Jun 2025)",
-    "fontSize": 22,
+    "text": "Monthly Visitor Arrivals% by State (Jul 2024 - Jun 2025)",
+    "fontSize": 16,
     "fontWeight": "bold",
     "font": "sans-serif"
   },

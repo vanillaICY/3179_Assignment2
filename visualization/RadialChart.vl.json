@@ -45,17 +45,27 @@
           }
         }
       ],
-      "mark": { "type": "arc", "innerRadius": 30, "stroke": "#fff" },
+      "mark": {
+        "type": "arc",
+        "innerRadius": 30,
+        "stroke": "#fff",
+        "strokeWidth": 2
+      },
       "encoding": {
         "theta": { "field": "Percent", "type": "quantitative", "stack": true },
         "radius": {
           "field": "Percent",
           "type": "quantitative",
-          "scale": { "type": "sqrt", "zero": true, "rangeMin": 30 }
+          "scale": {
+            "type": "sqrt",
+            "zero": true,
+            "rangeMin": 30,
+            "scheme": "spectral"
+          }
         },
         "color": { "field": "Purpose", "type": "nominal" },
         "opacity": {
-          "condition": [{ "param": "hoverPurpose", "value": 1.5 }],
+          "condition": [{ "param": "hoverPurpose", "value": 1 }],
           "value": 0.25
         },
         "tooltip": [

@@ -1,14 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "config": { "view": { "stroke": "" } },
+  "config": {},
   "background": "white",
   "title": {
-    "text": "Arrivals to Australia by Sex (Yr14-15 & Yr24-25)",
-    "fontSize": 20,
-    "fontWeight": "bold",
-    "fontStyle": "sans-serif"
+    "text": "Visitor Arrivals to Australia by Sex",
+    "fontSize": 14,
+    "fontWeight": "bold"
   },
-  "width": 600,
+  "width": 550,
   "height": 200,
   "data": {
     "values": [
