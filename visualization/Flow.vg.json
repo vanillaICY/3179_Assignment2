@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "background": "null",
+  "background": "white",
   "padding": 5,
   "width": 900,
   "height": 520,
@@ -13,11 +13,11 @@
   },
   "style": "view",
   "data": [
-    {"name": "source_0", "values": [{"type": "Sphere"}]},
+    { "name": "source_0", "values": [{ "type": "Sphere" }] },
     {
       "name": "source_1",
       "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/ne_110m_admin_0_countries.json",
-      "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"},
+      "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" },
       "transform": [
         {
           "type": "formula",
@@ -29,7 +29,7 @@
     {
       "name": "source_2",
       "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/flowmapdata.csv",
-      "format": {"type": "csv", "delimiter": ","},
+      "format": { "type": "csv", "delimiter": "," },
       "transform": [
         {
           "type": "geojson",
@@ -59,12 +59,15 @@
         }
       ]
     },
-    {"name": "source_3", "transform": [{"type": "graticule", "step": [30, 30]}]}
+    {
+      "name": "source_3",
+      "transform": [{ "type": "graticule", "step": [30, 30] }]
+    }
   ],
   "projections": [
     {
       "name": "projection",
-      "size": {"signal": "[width, height]"},
+      "size": { "signal": "[width, height]" },
       "fit": {
         "signal": "[data('source_0'), data('source_1'), layer_2_geojson_0, layer_2_geojson_1, data('source_3')]"
       },
@@ -76,51 +79,51 @@
       "name": "layer_0_marks",
       "type": "shape",
       "style": ["geoshape"],
-      "from": {"data": "source_0"},
+      "from": { "data": "source_0" },
       "encode": {
         "update": {
-          "fill": {"value": "#a2d7ec"},
-          "stroke": {"value": null},
-          "ariaRoleDescription": {"value": "geoshape"}
+          "fill": { "value": "#a2d7ec" },
+          "stroke": { "value": null },
+          "ariaRoleDescription": { "value": "geoshape" }
         }
       },
-      "transform": [{"type": "geoshape", "projection": "projection"}]
+      "transform": [{ "type": "geoshape", "projection": "projection" }]
     },
     {
       "name": "layer_1_marks",
       "type": "shape",
       "style": ["geoshape"],
-      "from": {"data": "source_1"},
+      "from": { "data": "source_1" },
       "encode": {
         "update": {
-          "fill": {"value": "#efefef"},
-          "stroke": {"value": "#ccc"},
-          "strokeWidth": {"value": 1},
-          "ariaRoleDescription": {"value": "geoshape"}
+          "fill": { "value": "#efefef" },
+          "stroke": { "value": "#ccc" },
+          "strokeWidth": { "value": 1 },
+          "ariaRoleDescription": { "value": "geoshape" }
         }
       },
-      "transform": [{"type": "geoshape", "projection": "projection"}]
+      "transform": [{ "type": "geoshape", "projection": "projection" }]
     },
     {
       "name": "layer_2_marks",
       "type": "rule",
       "style": ["rule"],
-      "from": {"data": "source_2"},
+      "from": { "data": "source_2" },
       "encode": {
         "update": {
-          "opacity": {"value": 0.8},
-          "strokeWidth": {"value": 8},
-          "stroke": {"scale": "color", "field": "Visitors"},
+          "opacity": { "value": 0.8 },
+          "strokeWidth": { "value": 8 },
+          "stroke": { "scale": "color", "field": "Visitors" },
           "tooltip": {
             "signal": "{\"From Country\": isValid(datum[\"Country\"]) ? datum[\"Country\"] : \"\"+datum[\"Country\"], \"Visitors\": format(datum[\"Visitors\"], \"\")}"
           },
           "description": {
             "signal": "\"OriginLA: \" + (format(datum[\"OriginLA\"], \"\")) + \"; DestLA: \" + (format(datum[\"DestLA\"], \"\")) + \"; OriginLO: \" + (format(datum[\"OriginLO\"], \"\")) + \"; DestLO: \" + (format(datum[\"DestLO\"], \"\")) + \"; Visitors: \" + (format(datum[\"Visitors\"], \".2s\")) + \"; From Country: \" + (isValid(datum[\"Country\"]) ? datum[\"Country\"] : \"\"+datum[\"Country\"])"
           },
-          "x": {"field": "layer_2_x"},
-          "x2": {"field": "layer_2_x2"},
-          "y": {"field": "layer_2_y"},
-          "y2": {"field": "layer_2_y2"}
+          "x": { "field": "layer_2_x" },
+          "x2": { "field": "layer_2_x2" },
+          "y": { "field": "layer_2_y" },
+          "y2": { "field": "layer_2_y2" }
         }
       }
     },
@@ -128,24 +131,24 @@
       "name": "layer_3_marks",
       "type": "shape",
       "style": ["geoshape"],
-      "from": {"data": "source_3"},
+      "from": { "data": "source_3" },
       "encode": {
         "update": {
-          "fill": {"value": null},
-          "stroke": {"value": "#3794d679"},
-          "strokeWidth": {"value": 0.8},
-          "ariaRoleDescription": {"value": "geoshape"}
+          "fill": { "value": null },
+          "stroke": { "value": "#3794d679" },
+          "strokeWidth": { "value": 0.8 },
+          "ariaRoleDescription": { "value": "geoshape" }
         }
       },
-      "transform": [{"type": "geoshape", "projection": "projection"}]
+      "transform": [{ "type": "geoshape", "projection": "projection" }]
     }
   ],
   "scales": [
     {
       "name": "color",
       "type": "linear",
-      "domain": {"data": "source_2", "field": "Visitors"},
-      "range": {"scheme": "yellowgreenblue"},
+      "domain": { "data": "source_2", "field": "Visitors" },
+      "range": { "scheme": "yellowgreenblue" },
       "interpolate": "hcl",
       "zero": false
     }
@@ -158,7 +161,7 @@
       "stroke": "color",
       "direction": "horizontal",
       "gradientLength": 100,
-      "encode": {"gradient": {"update": {"opacity": {"value": 0.8}}}}
+      "encode": { "gradient": { "update": { "opacity": { "value": 0.8 } } } }
     }
   ],
   "config": {}

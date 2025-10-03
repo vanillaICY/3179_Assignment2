@@ -6,7 +6,7 @@
     "fontWeight": "bold",
     "font": "sans-serif"
   },
-  "background": "null",
+  "background": "white",
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/arrivals_purpose.csv"
   },
@@ -28,7 +28,7 @@
       "calculate": "['2018-19','2022-23','2023-24','2024-25'][yearIndex]",
       "as": "SelectedYear"
     },
-    {"filter": "datum.Year === datum.SelectedYear"}
+    { "filter": "datum.Year === datum.SelectedYear" }
   ],
   "layer": [
     {
@@ -43,38 +43,38 @@
           }
         }
       ],
-      "mark": {"type": "arc", "innerRadius": 30, "stroke": "#fff"},
+      "mark": { "type": "arc", "innerRadius": 30, "stroke": "#fff" },
       "encoding": {
-        "theta": {"field": "Percent", "type": "quantitative", "stack": true},
+        "theta": { "field": "Percent", "type": "quantitative", "stack": true },
         "radius": {
           "field": "Percent",
           "type": "quantitative",
-          "scale": {"type": "sqrt", "zero": true, "rangeMin": 30}
+          "scale": { "type": "sqrt", "zero": true, "rangeMin": 30 }
         },
-        "color": {"field": "Purpose", "type": "nominal"},
+        "color": { "field": "Purpose", "type": "nominal" },
         "opacity": {
-          "condition": [{"param": "hoverPurpose", "value": 1.5}],
+          "condition": [{ "param": "hoverPurpose", "value": 1.5 }],
           "value": 0.25
         },
         "tooltip": [
-          {"field": "Purpose", "type": "nominal"},
-          {"field": "Percent", "type": "quantitative", "format": ".1f"},
-          {"field": "Year", "type": "nominal"}
+          { "field": "Purpose", "type": "nominal" },
+          { "field": "Percent", "type": "quantitative", "format": ".1f" },
+          { "field": "Year", "type": "nominal" }
         ]
       }
     },
     {
-      "mark": {"type": "text", "radiusOffset": 10},
+      "mark": { "type": "text", "radiusOffset": 10 },
       "encoding": {
-        "theta": {"field": "Percent", "type": "quantitative", "stack": true},
+        "theta": { "field": "Percent", "type": "quantitative", "stack": true },
         "radius": {
           "field": "Percent",
           "type": "quantitative",
-          "scale": {"type": "sqrt", "zero": true, "rangeMin": 30}
+          "scale": { "type": "sqrt", "zero": true, "rangeMin": 30 }
         },
-        "text": {"field": "Percent", "type": "quantitative", "format": ".1f"},
+        "text": { "field": "Percent", "type": "quantitative", "format": ".1f" },
         "opacity": {
-          "condition": [{"param": "hoverPurpose", "value": 1}],
+          "condition": [{ "param": "hoverPurpose", "value": 1 }],
           "value": 0.25
         }
       }
@@ -93,6 +93,6 @@
       }
     }
   ],
-  "view": {"stroke": null},
+  "view": { "stroke": null },
   "config": {}
 }

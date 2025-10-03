@@ -3,7 +3,7 @@
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/tourism_consumption_au.csv"
   },
-  "background": "null",
+  "background": "white",
   "title": {
     "text": "Tourism consumption ($b)",
     "fontSize": 22,
@@ -21,7 +21,7 @@
       }
     }
   ],
-  "mark": {"type": "bar"},
+  "mark": { "type": "bar" },
   "encoding": {
     "x": {
       "field": "Financial year",
@@ -38,13 +38,20 @@
       "field": "Type",
       "type": "nominal",
       "title": "Type",
-      "scale": {"scheme": "blues"}
+      "scale": { "scheme": "blues" }
     },
-    "order": {"field": "Type"},
-    "opacity": {"condition": [{"param": "hoverSeg", "value": 1}], "value": 0.6},
+    "order": { "field": "Type" },
+    "opacity": {
+      "condition": [{ "param": "hoverSeg", "value": 1 }],
+      "value": 0.6
+    },
     "tooltip": [
-      {"field": "Financial year", "type": "ordinal", "title": "Financial year"},
-      {"field": "Type", "type": "nominal"},
+      {
+        "field": "Financial year",
+        "type": "ordinal",
+        "title": "Financial year"
+      },
+      { "field": "Type", "type": "nominal" },
       {
         "aggregate": "sum",
         "field": "Value_billion_AUD",

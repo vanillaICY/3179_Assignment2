@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "background": "null",
+  "background": "white",
   "padding": 5,
   "width": 300,
   "height": 300,
@@ -12,20 +12,20 @@
     "frame": "group"
   },
   "style": "view",
-  "encode": {"update": {"stroke": {"value": null}}},
+  "encode": { "update": { "stroke": { "value": null } } },
   "data": [
-    {"name": "hoverPurpose_store"},
+    { "name": "hoverPurpose_store" },
     {
       "name": "source_0",
       "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/arrivals_purpose.csv",
-      "format": {"type": "csv", "delimiter": ","},
+      "format": { "type": "csv", "delimiter": "," },
       "transform": [
         {
           "type": "formula",
           "expr": "['2018-19','2022-23','2023-24','2024-25'][yearIndex]",
           "as": "SelectedYear"
         },
-        {"type": "filter", "expr": "datum.Year === datum.SelectedYear"}
+        { "type": "filter", "expr": "datum.Year === datum.SelectedYear" }
       ]
     },
     {
@@ -36,7 +36,7 @@
           "type": "stack",
           "groupby": [],
           "field": "Percent",
-          "sort": {"field": ["Purpose"], "order": ["ascending"]},
+          "sort": { "field": ["Purpose"], "order": ["ascending"] },
           "as": ["Percent_start", "Percent_end"],
           "offset": "zero"
         },
@@ -54,7 +54,7 @@
           "type": "stack",
           "groupby": [],
           "field": "Percent",
-          "sort": {"field": ["Percent"], "order": ["ascending"]},
+          "sort": { "field": ["Percent"], "order": ["ascending"] },
           "as": ["Percent_start", "Percent_end"],
           "offset": "zero"
         },
@@ -70,7 +70,10 @@
       "name": "unit",
       "value": {},
       "on": [
-        {"events": "pointermove", "update": "isTuple(group()) ? group() : unit"}
+        {
+          "events": "pointermove",
+          "update": "isTuple(group()) ? group() : unit"
+        }
       ]
     },
     {
@@ -92,27 +95,30 @@
       "name": "hoverPurpose_tuple",
       "on": [
         {
-          "events": [{"source": "scope", "type": "pointerover"}],
+          "events": [{ "source": "scope", "type": "pointerover" }],
           "update": "datum && item().mark.marktype !== 'group' && indexof(item().mark.role, 'legend') < 0 ? {unit: \"layer_0\", fields: hoverPurpose_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"Purpose\"]]} : null",
           "force": true
         },
-        {"events": [{"source": "view", "type": "pointerout"}], "update": "null"}
+        {
+          "events": [{ "source": "view", "type": "pointerout" }],
+          "update": "null"
+        }
       ]
     },
     {
       "name": "hoverPurpose_tuple_fields",
-      "value": [{"type": "E", "field": "Purpose"}]
+      "value": [{ "type": "E", "field": "Purpose" }]
     },
     {
       "name": "hoverPurpose_toggle",
       "value": false,
       "on": [
         {
-          "events": [{"source": "scope", "type": "pointerover"}],
+          "events": [{ "source": "scope", "type": "pointerover" }],
           "update": "event.shiftKey"
         },
         {
-          "events": [{"source": "view", "type": "pointerout"}],
+          "events": [{ "source": "view", "type": "pointerout" }],
           "update": "false"
         }
       ]
@@ -121,7 +127,7 @@
       "name": "hoverPurpose_modify",
       "on": [
         {
-          "events": {"signal": "hoverPurpose_tuple"},
+          "events": { "signal": "hoverPurpose_tuple" },
           "update": "modify(\"hoverPurpose_store\", hoverPurpose_toggle ? null : hoverPurpose_tuple, hoverPurpose_toggle ? null : true, hoverPurpose_toggle ? hoverPurpose_tuple : null)"
         }
       ]
@@ -133,18 +139,18 @@
       "type": "arc",
       "style": ["arc"],
       "interactive": true,
-      "from": {"data": "data_0"},
+      "from": { "data": "data_0" },
       "encode": {
         "update": {
-          "stroke": {"value": "#fff"},
-          "innerRadius": {"value": 30},
-          "fill": {"scale": "color", "field": "Purpose"},
+          "stroke": { "value": "#fff" },
+          "innerRadius": { "value": 30 },
+          "fill": { "scale": "color", "field": "Purpose" },
           "opacity": [
             {
               "test": "!length(data(\"hoverPurpose_store\")) || vlSelectionTest(\"hoverPurpose_store\", datum)",
               "value": 1.5
             },
-            {"value": 0.25}
+            { "value": 0.25 }
           ],
           "tooltip": {
             "signal": "{\"Purpose\": isValid(datum[\"Purpose\"]) ? datum[\"Purpose\"] : \"\"+datum[\"Purpose\"], \"Percent\": format(datum[\"Percent\"], \".1f\"), \"Year\": isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]}"
@@ -152,11 +158,11 @@
           "description": {
             "signal": "\"Percent: \" + (format(datum[\"Percent\"], \"\")) + \"; Purpose: \" + (isValid(datum[\"Purpose\"]) ? datum[\"Purpose\"] : \"\"+datum[\"Purpose\"]) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
           },
-          "x": {"signal": "width", "mult": 0.5},
-          "y": {"signal": "height", "mult": 0.5},
-          "outerRadius": {"scale": "radius", "field": "Percent"},
-          "startAngle": {"scale": "theta", "field": "Percent_end"},
-          "endAngle": {"scale": "theta", "field": "Percent_start"}
+          "x": { "signal": "width", "mult": 0.5 },
+          "y": { "signal": "height", "mult": 0.5 },
+          "outerRadius": { "scale": "radius", "field": "Percent" },
+          "startAngle": { "scale": "theta", "field": "Percent_end" },
+          "endAngle": { "scale": "theta", "field": "Percent_start" }
         }
       }
     },
@@ -165,26 +171,26 @@
       "type": "text",
       "style": ["text"],
       "interactive": false,
-      "from": {"data": "data_1"},
+      "from": { "data": "data_1" },
       "encode": {
         "update": {
-          "fill": {"value": "black"},
+          "fill": { "value": "black" },
           "opacity": [
             {
               "test": "!length(data(\"hoverPurpose_store\")) || vlSelectionTest(\"hoverPurpose_store\", datum)",
               "value": 1
             },
-            {"value": 0.25}
+            { "value": 0.25 }
           ],
           "description": {
             "signal": "\"Percent: \" + (format(datum[\"Percent\"], \"\"))"
           },
-          "x": {"signal": "width", "mult": 0.5},
-          "y": {"signal": "height", "mult": 0.5},
-          "text": {"signal": "format(datum[\"Percent\"], \".1f\")"},
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"},
-          "radius": {"scale": "radius", "field": "Percent", "offset": 10},
+          "x": { "signal": "width", "mult": 0.5 },
+          "y": { "signal": "height", "mult": 0.5 },
+          "text": { "signal": "format(datum[\"Percent\"], \".1f\")" },
+          "align": { "value": "center" },
+          "baseline": { "value": "middle" },
+          "radius": { "scale": "radius", "field": "Percent", "offset": 10 },
           "theta": {
             "signal": "scale(\"theta\", 0.5 * datum[\"Percent_start\"] + 0.5 * datum[\"Percent_end\"])"
           }
@@ -196,15 +202,15 @@
       "type": "text",
       "style": ["text"],
       "interactive": false,
-      "from": {"data": "source_0"},
+      "from": { "data": "source_0" },
       "encode": {
         "update": {
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"},
-          "fontSize": {"value": 18},
-          "fill": {"value": "black"},
-          "x": {"signal": "width", "mult": 0.5},
-          "y": {"signal": "height", "mult": 0.5}
+          "align": { "value": "center" },
+          "baseline": { "value": "middle" },
+          "fontSize": { "value": 18 },
+          "fill": { "value": "black" },
+          "x": { "signal": "width", "mult": 0.5 },
+          "y": { "signal": "height", "mult": 0.5 }
         }
       }
     }
@@ -215,10 +221,10 @@
       "type": "linear",
       "domain": {
         "fields": [
-          {"data": "data_0", "field": "Percent_start"},
-          {"data": "data_0", "field": "Percent_end"},
-          {"data": "data_1", "field": "Percent_start"},
-          {"data": "data_1", "field": "Percent_end"}
+          { "data": "data_0", "field": "Percent_start" },
+          { "data": "data_0", "field": "Percent_end" },
+          { "data": "data_1", "field": "Percent_start" },
+          { "data": "data_1", "field": "Percent_end" }
         ]
       },
       "range": [0, 6.283185307179586],
@@ -229,17 +235,17 @@
       "type": "sqrt",
       "domain": {
         "fields": [
-          {"data": "data_0", "field": "Percent"},
-          {"data": "data_1", "field": "Percent"}
+          { "data": "data_0", "field": "Percent" },
+          { "data": "data_1", "field": "Percent" }
         ]
       },
-      "range": [30, {"signal": "min(width,height)/2"}],
+      "range": [30, { "signal": "min(width,height)/2" }],
       "zero": true
     },
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "data_0", "field": "Purpose", "sort": true},
+      "domain": { "data": "data_0", "field": "Purpose", "sort": true },
       "range": "category"
     }
   ],
@@ -250,7 +256,10 @@
       "title": "Purpose",
       "encode": {
         "symbols": {
-          "update": {"stroke": {"value": "#fff"}, "opacity": {"value": 1.5}}
+          "update": {
+            "stroke": { "value": "#fff" },
+            "opacity": { "value": 1.5 }
+          }
         }
       }
     }

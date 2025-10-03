@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
-  "background": "null",
+  "background": "white",
   "padding": 5,
   "title": {
     "text": "Arrivals to Australia by Sex (Yr14-15 & Yr24-25)",
@@ -13,35 +13,35 @@
     {
       "name": "source_0",
       "values": [
-        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
-        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
-        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
-        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
-        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
-        {"Year": "2014-2015", "Sex": "male", "Arrivals": 3569190},
-        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
-        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
-        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
-        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
-        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
-        {"Year": "2014-2015", "Sex": "female", "Arrivals": 3569580},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "male", "Arrivals": 3974820},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570},
-        {"Year": "2024-2025", "Sex": "female", "Arrivals": 4427570}
+        { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },
+        { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },
+        { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },
+        { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },
+        { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },
+        { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },
+        { "Year": "2014-2015", "Sex": "female", "Arrivals": 3569580 },
+        { "Year": "2014-2015", "Sex": "female", "Arrivals": 3569580 },
+        { "Year": "2014-2015", "Sex": "female", "Arrivals": 3569580 },
+        { "Year": "2014-2015", "Sex": "female", "Arrivals": 3569580 },
+        { "Year": "2014-2015", "Sex": "female", "Arrivals": 3569580 },
+        { "Year": "2014-2015", "Sex": "female", "Arrivals": 3569580 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "male", "Arrivals": 3974820 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 },
+        { "Year": "2024-2025", "Sex": "female", "Arrivals": 4427570 }
       ]
     },
     {
@@ -59,7 +59,7 @@
           "as": ["rank"],
           "ops": ["rank"],
           "fields": [null],
-          "sort": {"field": [], "order": []},
+          "sort": { "field": [], "order": [] },
           "groupby": ["Year", "Sex"]
         },
         {
@@ -71,21 +71,21 @@
     {
       "name": "row_domain",
       "source": "data_0",
-      "transform": [{"type": "aggregate", "groupby": ["Year"]}]
+      "transform": [{ "type": "aggregate", "groupby": ["Year"] }]
     }
   ],
   "signals": [
-    {"name": "child_width", "value": 600},
-    {"name": "child_height", "value": 200}
+    { "name": "child_width", "value": 600 },
+    { "name": "child_height", "value": 200 }
   ],
-  "layout": {"padding": 20, "columns": 1, "bounds": "full", "align": "all"},
+  "layout": { "padding": 20, "columns": 1, "bounds": "full", "align": "all" },
   "marks": [
     {
       "name": "row_header",
       "type": "group",
       "role": "row-header",
-      "from": {"data": "row_domain"},
-      "sort": {"field": "datum[\"Year\"]", "order": "ascending"},
+      "from": { "data": "row_domain" },
+      "sort": { "field": "datum[\"Year\"]", "order": "ascending" },
       "title": {
         "text": {
           "signal": "isValid(parent[\"Year\"]) ? parent[\"Year\"] : \"\"+parent[\"Year\"]"
@@ -95,13 +95,13 @@
         "frame": "group",
         "offset": 10
       },
-      "encode": {"update": {"height": {"signal": "child_height"}}}
+      "encode": { "update": { "height": { "signal": "child_height" } } }
     },
     {
       "name": "column_footer",
       "type": "group",
       "role": "column-footer",
-      "encode": {"update": {"width": {"signal": "child_width"}}},
+      "encode": { "update": { "width": { "signal": "child_width" } } },
       "axes": [
         {
           "scale": "x",
@@ -121,13 +121,13 @@
       "type": "group",
       "style": "cell",
       "from": {
-        "facet": {"name": "facet", "data": "data_0", "groupby": ["Year"]}
+        "facet": { "name": "facet", "data": "data_0", "groupby": ["Year"] }
       },
-      "sort": {"field": ["datum[\"Year\"]"], "order": ["ascending"]},
+      "sort": { "field": ["datum[\"Year\"]"], "order": ["ascending"] },
       "encode": {
         "update": {
-          "width": {"signal": "child_width"},
-          "height": {"signal": "child_height"}
+          "width": { "signal": "child_width" },
+          "height": { "signal": "child_height" }
         }
       },
       "marks": [
@@ -135,24 +135,24 @@
           "name": "child_marks",
           "type": "text",
           "style": ["text"],
-          "from": {"data": "facet"},
+          "from": { "data": "facet" },
           "encode": {
             "update": {
-              "baseline": {"value": "middle"},
-              "fill": {"value": "black"},
+              "baseline": { "value": "middle" },
+              "fill": { "value": "black" },
               "tooltip": {
                 "signal": "{\"Sex\": isValid(datum[\"Sex\"]) ? datum[\"Sex\"] : \"\"+datum[\"Sex\"], \"Arrivals\": format(datum[\"Arrivals\"], \",\")}"
               },
               "description": {
                 "signal": "\"rank: \" + (format(datum[\"rank\"], \"\")) + \"; Sex: \" + (isValid(datum[\"Sex\"]) ? datum[\"Sex\"] : \"\"+datum[\"Sex\"]) + \"; emoji: \" + (isValid(datum[\"emoji\"]) ? datum[\"emoji\"] : \"\"+datum[\"emoji\"]) + \"; Arrivals: \" + (format(datum[\"Arrivals\"], \",\"))"
               },
-              "x": {"scale": "x", "field": "rank"},
-              "y": {"scale": "y", "field": "Sex"},
+              "x": { "scale": "x", "field": "rank" },
+              "y": { "scale": "y", "field": "Sex" },
               "text": {
                 "signal": "isValid(datum[\"emoji\"]) ? datum[\"emoji\"] : \"\"+datum[\"emoji\"]"
               },
-              "fontSize": {"value": 60},
-              "align": {"value": "center"}
+              "fontSize": { "value": 60 },
+              "align": { "value": "center" }
             }
           }
         }
@@ -181,16 +181,16 @@
       "name": "x",
       "type": "linear",
       "domain": [0, 10],
-      "range": [0, {"signal": "child_width"}],
+      "range": [0, { "signal": "child_width" }],
       "zero": true
     },
     {
       "name": "y",
       "type": "point",
-      "domain": {"data": "data_0", "field": "Sex"},
-      "range": [0, {"signal": "child_height"}],
+      "domain": { "data": "data_0", "field": "Sex" },
+      "range": [0, { "signal": "child_height" }],
       "padding": 0.5
     }
   ],
-  "config": {"style": {"cell": {"stroke": ""}}}
+  "config": { "style": { "cell": { "stroke": "" } } }
 }

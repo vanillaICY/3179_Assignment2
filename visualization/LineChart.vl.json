@@ -1,10 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "background": "white",
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/short_term_arrivals_long.csv"
   },
   "encoding": {
-    "x": {"field": "Month", "type": "quantitative", "title": "Month"},
+    "x": { "field": "Month", "type": "quantitative", "title": "Month" },
     "y": {
       "field": "Arrivals",
       "type": "quantitative",
@@ -19,20 +20,23 @@
       },
       "value": "grey"
     },
-    "opacity": {"condition": {"param": "linehover", "value": 1}, "value": 0.2}
+    "opacity": {
+      "condition": { "param": "linehover", "value": 1 },
+      "value": 0.2
+    }
   },
   "layer": [
     {
       "params": [
         {
           "name": "linehover",
-          "value": [{"Year": "2024-25"}],
-          "select": {"type": "point", "fields": ["Year"], "on": "pointerover"}
+          "value": [{ "Year": "2024-25" }],
+          "select": { "type": "point", "fields": ["Year"], "on": "pointerover" }
         }
       ],
-      "mark": {"type": "line", "strokeWidth": 8, "stroke": "transparent"}
+      "mark": { "type": "line", "strokeWidth": 8, "stroke": "transparent" }
     },
-    {"mark": {"type": "line", "strokeWidth": 2}},
+    { "mark": { "type": "line", "strokeWidth": 2 } },
     {
       "params": [
         {
@@ -46,36 +50,36 @@
           }
         }
       ],
-      "mark": {"type": "circle", "tooltip": true},
+      "mark": { "type": "circle", "tooltip": true },
       "encoding": {
         "opacity": {
-          "condition": {"param": "pt", "empty": false, "value": 1},
+          "condition": { "param": "pt", "empty": false, "value": 1 },
           "value": 0
         },
         "size": {
-          "condition": {"param": "pt", "empty": false, "value": 90},
+          "condition": { "param": "pt", "empty": false, "value": 90 },
           "value": 100
         },
         "tooltip": [
-          {"field": "Year", "type": "nominal"},
-          {"field": "Month", "type": "quantitative"},
-          {"field": "Arrivals", "type": "quantitative", "format": ".2f"}
+          { "field": "Year", "type": "nominal" },
+          { "field": "Month", "type": "quantitative" },
+          { "field": "Arrivals", "type": "quantitative", "format": ".2f" }
         ]
       }
     },
     {
       "encoding": {
-        "x": {"aggregate": "max", "field": "Month"},
-        "y": {"aggregate": {"argmax": "Month"}, "field": "Arrivals"}
+        "x": { "aggregate": "max", "field": "Month" },
+        "y": { "aggregate": { "argmax": "Month" }, "field": "Arrivals" }
       },
       "layer": [
-        {"mark": {"type": "circle"}},
+        { "mark": { "type": "circle" } },
         {
-          "mark": {"type": "text", "align": "left", "dx": 4},
-          "encoding": {"text": {"field": "Year", "type": "nominal"}}
+          "mark": { "type": "text", "align": "left", "dx": 4 },
+          "encoding": { "text": { "field": "Year", "type": "nominal" } }
         }
       ]
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": { "view": { "stroke": null } }
 }
