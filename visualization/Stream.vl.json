@@ -5,6 +5,7 @@
     "fontSize": 14,
     "fontWeight": "bold"
   },
+  "background": "aliceblue",
   "width": 900,
   "height": 100,
   "data": {

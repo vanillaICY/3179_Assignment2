@@ -6,9 +6,9 @@
     "fontWeight": "bold",
     "font": "sans-serif"
   },
-  "background": "white",
+  "background": "aliceblue",
   "width": "container",
-  "height": 400,
+  "height": 500,
   "params": [
     {
       "name": "Month_selection",

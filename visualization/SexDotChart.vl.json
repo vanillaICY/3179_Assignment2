@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "config": {},
-  "background": "white",
+  "background": "aliceblue",
   "title": {
     "text": "Visitor Arrivals to Australia by Sex",
     "fontSize": 14,
     "fontWeight": "bold"
   },
   "width": 550,
-  "height": 200,
+  "height": 250,
   "data": {
     "values": [
       { "Year": "2014-2015", "Sex": "male", "Arrivals": 3569190 },

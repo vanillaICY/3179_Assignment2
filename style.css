@@ -1,7 +1,7 @@
 h1 {
   font-family: "Lobster", sans-serif;
   font-weight: 900;
-  font-size: 65px;
+  font-size: 80px;
 }
 
 h2 {
@@ -21,7 +21,7 @@ body {
 
 .page {
   width: 1000px;
-  background-color: white;
+  background-color: azure;
   margin: auto;
   padding: 50px;
   padding-top: 35px;
@@ -78,4 +78,12 @@ h1 {
 .r-align {
   display: block;
   text-align: right;
+}
+
+.highlightB {
+  color: dodgerblue;
+}
+
+.highlightR {
+  color: lightcoral;
 }

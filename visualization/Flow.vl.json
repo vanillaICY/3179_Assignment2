@@ -6,7 +6,7 @@
     "fontWeight": "bold",
     "font": "sans-serif"
   },
-  "background": "white",
+  "background": "aliceblue",
   "width": 1000,
   "height": 520,
   "projection": { "type": "equalEarth" },
