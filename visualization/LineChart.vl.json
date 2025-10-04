@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "background": "aliceblue",
   "height": 250,
-  "width": "container",
+  "width": 395,
   "title": {
     "text": "Overall Visitor Arrivals",
     "fontSize": 14,

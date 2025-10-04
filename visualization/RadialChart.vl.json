@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "width": 300,
+  "width": "container",
   "height": 400,
   "title": {
     "text": "Purpose of Visitor Arrivals (%)",
