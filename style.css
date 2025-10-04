@@ -88,3 +88,20 @@ h1 {
 .highlightR {
   color: lightcoral;
 }
+
+.section-wrapper {
+  background-size: cover;
+  background-position: center;
+  padding: 60px 0; /* spacing around inner box */
+}
+
+.section-box {
+  color: cadetblue;
+  text-align: center;
+  background-color: beige; /* box color */
+  border-radius: 15px; /* makes corners rounded */
+  padding: 20px; /* spacing inside the box */
+  margin: 20px auto; /* spacing outside (centered) */
+  width: 90%; /* adjust to fit page nicely */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
