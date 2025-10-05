@@ -9,9 +9,11 @@
     "font": "sans-serif"
   },
   "background": "aliceblue",
+
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/arrivals_purpose.csv"
   },
+
   "params": [
     {
       "name": "yearIndex",
@@ -25,6 +27,7 @@
       }
     }
   ],
+
   "transform": [
     {
       "calculate": "['2018-19','2022-23','2023-24','2024-25'][yearIndex]",
@@ -32,6 +35,7 @@
     },
     { "filter": "datum.Year === datum.SelectedYear" }
   ],
+
   "layer": [
     {
       "params": [
@@ -47,7 +51,7 @@
       ],
       "mark": {
         "type": "arc",
-        "innerRadius": 30,
+        "innerRadius": 40,
         "stroke": "#fff",
         "strokeWidth": 2
       },
@@ -56,12 +60,7 @@
         "radius": {
           "field": "Percent",
           "type": "quantitative",
-          "scale": {
-            "type": "sqrt",
-            "zero": true,
-            "rangeMin": 30,
-            "scheme": "spectral"
-          }
+          "scale": { "type": "sqrt", "zero": true, "rangeMin": 30 }
         },
         "color": { "field": "Purpose", "type": "nominal" },
         "opacity": {
@@ -75,8 +74,15 @@
         ]
       }
     },
+
     {
-      "mark": { "type": "text", "radiusOffset": 10 },
+      "mark": {
+        "type": "text",
+        "radiusOffset": 30,
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "fill": "black"
+      },
       "encoding": {
         "theta": { "field": "Percent", "type": "quantitative", "stack": true },
         "radius": {
@@ -84,13 +90,20 @@
           "type": "quantitative",
           "scale": { "type": "sqrt", "zero": true, "rangeMin": 30 }
         },
-        "text": { "field": "Percent", "type": "quantitative", "format": ".1f" },
+        "text": { "field": "Purpose" },
         "opacity": {
           "condition": [{ "param": "hoverPurpose", "value": 1 }],
-          "value": 0.25
+          "value": 1
+        },
+        "color": { "value": null }
+      },
+      "transform": [
+        {
+          "filter": "datum.Purpose == 'Business' || datum.Purpose == 'Visiting friends/relatives' || datum.Purpose == 'Holiday' || datum.Purpose == 'Education'"
         }
-      }
+      ]
     },
+
     {
       "mark": {
         "type": "text",
@@ -105,6 +118,7 @@
       }
     }
   ],
+
   "view": { "stroke": null },
   "config": {}
 }

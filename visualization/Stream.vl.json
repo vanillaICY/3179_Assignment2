@@ -47,7 +47,7 @@
     "tooltip": [
       { "field": "Year", "title": "Year" },
       { "field": "State", "title": "State" },
-      { "field": "Arrivals_M", "title": "Arrivals (M)", "format": ".2f" }
+      { "field": "ArrivalsM", "title": "Arrivals (M)", "format": ".2f" }
     ],
     "order": { "field": "State" }
   },
