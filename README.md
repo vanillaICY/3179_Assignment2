@@ -10,6 +10,6 @@ All origin data can be found in following official website:
 
 Main URL: https://vanillaICY.github.io/3179_Assignment2
 
-Sketch URL: https://vanillaICY.github.io/3179_Assignment2/sketch.html
+Sketch URL: https://vanillaICY.github.io/3179_Assignment2/sketch/sketch.html
 
 Week9 Homework URL: https://vanillaICY.github.io/3179_Assignment2/Week9_Homework
