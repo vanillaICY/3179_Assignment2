@@ -48,7 +48,7 @@
         "order": { "field": "Type" },
         "opacity": {
           "condition": [{ "param": "hoverSeg", "value": 1 }],
-          "value": 0.6
+          "value": 0.2
         },
         "tooltip": [
           {

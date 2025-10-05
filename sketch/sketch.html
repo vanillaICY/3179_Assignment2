@@ -53,7 +53,7 @@
       <div class="pure-g row">
         <div class="top">
           <img
-            src="image/100 Things I Wish Someone Told me Before Moving to Australia.jpg"
+            src="../image/100 Things I Wish Someone Told me Before Moving to Australia.jpg"
           />
         </div>
       </div>
@@ -245,11 +245,6 @@
             forward.
           </p>
         </div>
-        <div class="pure-u-2-5">
-          <div class="inner">
-            <img src="image/download.jpg" alt="Welcome to Australia" />
-          </div>
-        </div>
       </div>
 
       <!-- Row 7 -->
@@ -297,23 +292,25 @@
       </div>
 
       <script type="text/javascript">
-        vegaEmbed("#vis1", "visualization/Choropleth.vl.json", {
+        vegaEmbed("#vis1", "../visualization/Choropleth.vl.json", {
           actions: false,
         });
-        vegaEmbed("#vis2", "visualization/Flow.vl.json", { actions: false });
-        vegaEmbed("#vis3", "visualization/LineChart.vl.json", {
+        vegaEmbed("#vis2", "../visualization/Flow.vl.json", { actions: false });
+        vegaEmbed("#vis3", "../visualization/LineChart.vl.json", {
           actions: true,
         });
-        vegaEmbed("#vis4", "visualization/RadialChart.vl.json", {
+        vegaEmbed("#vis4", "../visualization/RadialChart.vl.json", {
           actions: true,
         });
-        vegaEmbed("#vis5", "visualization/SexDotChart.vl.json", {
+        vegaEmbed("#vis5", "../visualization/SexDotChart.vl.json", {
           actions: false,
         });
-        vegaEmbed("#vis6", "visualization/StackBar.vl.json", {
+        vegaEmbed("#vis6", "../visualization/StackBar.vl.json", {
           actions: true,
         });
-        vegaEmbed("#vis7", "visualization/Stream.vl.json", { actions: false });
+        vegaEmbed("#vis7", "../visualization/Stream.vl.json", {
+          actions: false,
+        });
       </script>
     </div>
   </body>
