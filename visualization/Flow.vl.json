@@ -46,7 +46,7 @@
         "color": {
           "field": "Visitors",
           "type": "quantitative",
-          "scale": { "scheme": "yellowgreenblue" },
+          "scale": { "scheme": "tealblues" },
           "legend": {
             "title": "Number of Visitors",
             "format": ".2s",

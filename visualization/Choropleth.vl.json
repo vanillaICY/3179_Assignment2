@@ -126,6 +126,7 @@
           "title": "Arrivals (%)",
           "legend": { "format": "" },
           "scale": {
+            "scheme": "greens",
             "type": "threshold",
             "domain": [1, 5, 10, 15, 20, 25, 30, 35, 40]
           }
