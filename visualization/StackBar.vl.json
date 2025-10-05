@@ -12,56 +12,123 @@
     "fontWeight": "bold",
     "font": "sans-serif"
   },
-  "params": [
+
+  "layer": [
     {
-      "name": "hoverSeg",
-      "select": {
-        "type": "point",
-        "fields": ["Financial year", "Type"],
-        "on": "pointerover",
-        "clear": "pointerout"
+      "params": [
+        {
+          "name": "hoverSeg",
+          "select": {
+            "type": "point",
+            "fields": ["Financial year", "Type"],
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
+        }
+      ],
+      "mark": { "type": "bar" },
+      "encoding": {
+        "x": {
+          "field": "Financial year",
+          "type": "ordinal",
+          "title": "Financial year"
+        },
+        "y": {
+          "aggregate": "sum",
+          "field": "Value_billion_AUD",
+          "type": "quantitative",
+          "title": "Tourism consumption ($b)"
+        },
+        "color": {
+          "field": "Type",
+          "type": "nominal",
+          "title": "Type",
+          "scale": { "scheme": "blues" }
+        },
+        "order": { "field": "Type" },
+        "opacity": {
+          "condition": [{ "param": "hoverSeg", "value": 1 }],
+          "value": 0.6
+        },
+        "tooltip": [
+          {
+            "field": "Financial year",
+            "type": "ordinal",
+            "title": "Financial year"
+          },
+          { "field": "Type", "type": "nominal" },
+          {
+            "aggregate": "sum",
+            "field": "Value_billion_AUD",
+            "type": "quantitative",
+            "format": ".3f",
+            "title": "Value ($b)"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "aggregate": [
+            { "op": "sum", "field": "Value_billion_AUD", "as": "year_total" }
+          ],
+          "groupby": ["Financial year"]
+        },
+        {
+          "aggregate": [
+            { "op": "mean", "field": "year_total", "as": "mean_total" }
+          ]
+        }
+      ],
+      "layer": [
+        {
+          "mark": { "type": "rule", "color": "red", "size": 3 },
+          "encoding": {
+            "y": { "field": "mean_total", "type": "quantitative" }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "dx": 6,
+            "dy": -6,
+            "align": "left",
+            "baseline": "bottom",
+            "fontSize": 11,
+            "color": "red"
+          },
+          "encoding": {
+            "y": { "field": "mean_total", "type": "quantitative" },
+            "text": { "value": "Mean total across years" }
+          }
+        }
+      ]
+    },
+    {
+      "transform": [
+        {
+          "aggregate": [
+            { "op": "sum", "field": "Value_billion_AUD", "as": "total" }
+          ],
+          "groupby": ["Financial year"]
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#333",
+        "baseline": "bottom",
+        "dy": -6
+      },
+      "encoding": {
+        "x": { "field": "Financial year", "type": "ordinal" },
+        "y": { "field": "total", "type": "quantitative" },
+        "text": { "field": "total", "type": "quantitative", "format": ".0f" }
       }
     }
   ],
-  "mark": { "type": "bar" },
-  "encoding": {
-    "x": {
-      "field": "Financial year",
-      "type": "ordinal",
-      "title": "Financial year"
-    },
-    "y": {
-      "aggregate": "sum",
-      "field": "Value_billion_AUD",
-      "type": "quantitative",
-      "title": "Tourism consumption ($b)"
-    },
-    "color": {
-      "field": "Type",
-      "type": "nominal",
-      "title": "Type",
-      "scale": { "scheme": "blues" }
-    },
-    "order": { "field": "Type" },
-    "opacity": {
-      "condition": [{ "param": "hoverSeg", "value": 1 }],
-      "value": 0.6
-    },
-    "tooltip": [
-      {
-        "field": "Financial year",
-        "type": "ordinal",
-        "title": "Financial year"
-      },
-      { "field": "Type", "type": "nominal" },
-      {
-        "aggregate": "sum",
-        "field": "Value_billion_AUD",
-        "type": "quantitative",
-        "format": ".3f",
-        "title": "Value ($b)"
-      }
-    ]
-  },
+
   "config": {}
 }

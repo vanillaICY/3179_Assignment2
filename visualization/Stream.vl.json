@@ -11,7 +11,6 @@
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_stream.csv"
   },
-  "mark": { "type": "area", "interpolate": "monotone" },
   "params": [
     {
       "name": "stateSel",
@@ -19,6 +18,7 @@
       "bind": "legend"
     }
   ],
+  "mark": { "type": "area", "interpolate": "monotone" },
   "encoding": {
     "x": {
       "field": "Year",
