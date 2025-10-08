@@ -1,0 +1,76 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "description": "Word cloud summarising key themes in Australian tourism content. Larger words appear more frequently across articles, guides and reviews. Welcome to Australia — explore cities, coastlines and the outback!",
+  "width": 800,
+  "height": 400,
+  "padding": 0,
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        "Australia stands as one of the world’s most remarkable destinations, attracting millions of visitors each year with its distinctive blend of breathtaking landscapes, vibrant cities, and deep-rooted culture. As a tourism hotspot, Australia offers an experience unlike any other — a place where modern urban energy meets ancient natural beauty, and where every traveler can find something to admire and explore. From the sun-kissed shores of the Gold Coast to the dramatic cliffs of the Great Ocean Road, Australia’s geography reflects both adventure and tranquility, making it a cornerstone of global tourism.",
+        "The essence of Australian tourism lies in its diversity. Visitors can immerse themselves in the cosmopolitan culture of Sydney and Melbourne, cities known for their art, architecture, and culinary scenes. Sydney dazzles with the iconic Opera House and Harbour Bridge, while Melbourne thrives on creativity, coffee culture, and street art. Further north, Queensland invites tourists to experience the Great Barrier Reef — the world’s largest coral ecosystem — where marine biodiversity flourishes in dazzling colors beneath the sea. In the Red Centre, Uluru rises majestically, a sacred site of immense cultural and spiritual importance to Indigenous Australians. Every corner of the country contributes to a story of adventure, community, and respect for the land.",
+        "Australian culture is a vibrant tapestry woven from Indigenous traditions, colonial heritage, and multicultural influences. The Aboriginal and Torres Strait Islander peoples — the world’s oldest continuous cultures — have lived in harmony with the land for tens of thousands of years. Their stories, art, and music continue to shape the nation’s identity and connect modern Australians to their ancient roots. Across the country, festivals and cultural celebrations showcase this diversity: from Dreamtime storytelling in the Northern Territory to the lively food and wine events of South Australia. Australia’s culture thrives on openness, creativity, and a welcoming spirit that extends to every visitor.",
+        "Wildlife is another cornerstone of Australia’s tourism appeal. The country is home to some of the planet’s most unique and fascinating creatures — kangaroos, koalas, wombats, platypuses, and countless species found nowhere else. Nature lovers can spot dolphins off the coasts, dive among coral gardens, or witness the migration of whales along pristine shorelines. In its vast national parks — such as Kakadu, Daintree, and Cradle Mountain — the connection between culture and environment becomes clear: these are living landscapes that embody both ecological and spiritual significance.",
+        "Beyond its natural beauty, Australia’s tourism industry embraces sustainability and innovation. Many destinations focus on eco-tourism, aiming to preserve fragile ecosystems while promoting education and respect for the environment. Whether exploring ancient rock art, tasting local cuisine, or meeting friendly locals in a coastal town, visitors are invited to experience not only the land but the vibrant culture that defines it. Australia welcomes the world with open arms, promising discovery, inspiration, and memories that last a lifetime."
+      ],
+      "transform": [
+        {
+          "type": "countpattern",
+          "field": "data",
+          "case": "upper",
+          "pattern": "[\\w']{3,}",
+          "stopwords": "(i|me|my|myself|we|us|our|ours|ourselves|you|your|yours|yourself|yourselves|he|him|his|himself|she|her|hers|herself|it|its|itself|they|them|their|theirs|themselves|what|which|who|whom|whose|this|that|these|those|am|is|are|was|were|be|been|being|have|has|had|having|do|does|did|doing|will|would|should|can|could|ought|i'm|you're|he's|she's|it's|we're|they're|i've|you've|we've|they've|i'd|you'd|he'd|she'd|we'd|they'd|i'll|you'll|he'll|she'll|we'll|they'll|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|doesn't|don't|didn't|won't|wouldn't|shan't|shouldn't|can't|cannot|couldn't|mustn't|let's|that's|who's|what's|here's|there's|when's|where's|why's|how's|a|an|the|and|but|if|or|because|as|until|while|of|at|by|for|with|about|against|between|into|through|during|before|after|above|below|to|from|up|upon|down|in|out|on|off|over|under|again|further|then|once|here|there|when|where|why|how|all|any|both|each|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|say|says|said|shall|welcome|guide|guides|travel|travels|traveller|travellers|traveler|travelers|tourism|tourist|tourists|visit|visits|visiting|visited|destination|destinations|explore|exploring|discover|discovering|experience|experiences|information|official|website|site|blog|post|article|review|reviews|planner|planning|trip|trips|itinerary|itineraries|season|seasons|holiday|holidays|vacation|vacations|stay|stays|accommodation|accommodations|hotel|hotels|booking|bookings)"
+        },
+        {
+          "type": "formula",
+          "as": "angle",
+          "expr": "[-45, 0, 45][~~(random() * 3)]"
+        },
+        {
+          "type": "formula",
+          "as": "weight",
+          "expr": "(datum.text=='AUSTRALIA' || datum.text=='TOURISM') ? 800 : 200"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "text"},
+      "range": ["#0077b6", "#00b4d8", "#90e0ef", "#ffba08"]
+    }
+  ],
+  "marks": [
+    {
+      "type": "text",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "text": {"field": "text"},
+          "align": {"value": "center"},
+          "baseline": {"value": "alphabetic"},
+          "fill": {"scale": "color", "field": "text"}
+        },
+        "update": {"fillOpacity": {"value": 1}},
+        "hover": {"fillOpacity": {"value": 0.25}}
+      },
+      "transform": [
+        {
+          "type": "wordcloud",
+          "size": [900, 450],
+          "text": {"field": "text"},
+          "rotate": {"field": "datum.angle"},
+          "font": "Helvetica Neue, Arial",
+          "fontSize": {"field": "datum.count"},
+          "fontWeight": {"field": "datum.weight"},
+          "fontSizeRange": [15, 70],
+          "padding": 1.25
+        }
+      ]
+    }
+  ],
+  "config": {}
+}

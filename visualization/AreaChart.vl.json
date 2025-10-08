@@ -1,0 +1,67 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/Visitor_Arrivals.csv"
+  },
+  "background": "aliceblue",
+  "title": {
+    "text": "Visitor Arrivals (Jul 2018 - Jun 2025)",
+    "fontSize": 14,
+    "fontWeight": "bold",
+    "anchor": "middle"
+  },
+  "vconcat": [
+    {
+      "width": 480,
+      "mark": {
+        "type": "area",
+        "fill": "royalblue",
+        "fillOpacity": 0.9,
+        "stroke": "#1e40af",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "Month",
+          "type": "temporal",
+          "scale": {"domain": {"param": "brush"}},
+          "timeUnit": "yearmonth",
+          "axis": {"format": "%Y-%m", "title": "Month"}
+        },
+        "y": {
+          "field": "Arrivals_M",
+          "title": "Arrivals(Million)",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "width": 480,
+      "height": 60,
+      "title": {
+        "text": "Use this line chart to filter out the data based on time",
+        "fontWeight": "normal"
+      },
+      "mark": {
+        "type": "area",
+        "fill": "royalblue",
+        "fillOpacity": 0.9,
+        "stroke": "#1e40af",
+        "strokeWidth": 1
+      },
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {"field": "Month", "type": "temporal"},
+        "y": {
+          "field": "Arrivals_M",
+          "title": "Arrivals",
+          "type": "quantitative",
+          "axis": {"tickCount": 3, "grid": false}
+        }
+      }
+    }
+  ],
+  "config": {}
+}
