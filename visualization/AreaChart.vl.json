@@ -12,7 +12,8 @@
   },
   "vconcat": [
     {
-      "width": 480,
+      "width": 450,
+      "height": 250,
       "mark": {
         "type": "area",
         "fill": "royalblue",
@@ -24,9 +25,9 @@
         "x": {
           "field": "Month",
           "type": "temporal",
-          "scale": {"domain": {"param": "brush"}},
+          "scale": { "domain": { "param": "brush" } },
           "timeUnit": "yearmonth",
-          "axis": {"format": "%Y-%m", "title": "Month"}
+          "axis": { "format": "%Y-%m", "title": "Month" }
         },
         "y": {
           "field": "Arrivals_M",
@@ -36,8 +37,8 @@
       }
     },
     {
-      "width": 480,
-      "height": 60,
+      "width": 450,
+      "height": 80,
       "title": {
         "text": "Use this line chart to filter out the data based on time",
         "fontWeight": "normal"
@@ -50,15 +51,18 @@
         "strokeWidth": 1
       },
       "params": [
-        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+        {
+          "name": "brush",
+          "select": { "type": "interval", "encodings": ["x"] }
+        }
       ],
       "encoding": {
-        "x": {"field": "Month", "type": "temporal"},
+        "x": { "field": "Month", "type": "temporal" },
         "y": {
           "field": "Arrivals_M",
           "title": "Arrivals",
           "type": "quantitative",
-          "axis": {"tickCount": 3, "grid": false}
+          "axis": { "tickCount": 3, "grid": false }
         }
       }
     }

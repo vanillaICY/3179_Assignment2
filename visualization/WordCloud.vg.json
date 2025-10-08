@@ -1,14 +1,16 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v6.json",
   "description": "Word cloud summarising key themes in Australian tourism content. Larger words appear more frequently across articles, guides and reviews. Welcome to Australia — explore cities, coastlines and the outback!",
-  "width": 800,
-  "height": 400,
-  "padding": 0,
+  "background": "aliceblue",
+  "width": 1000,
+  "height": 300,
+  "padding": 1,
 
   "data": [
     {
       "name": "table",
       "values": [
+        "Australia, officially the Commonwealth of Australia, is an island continent and country in the Southern Hemisphere, known for its unique wildlife, vast deserts, the Great Barrier Reef, and a diverse cultural landscape. It is a developed nation and a stable, democratic country with a federal parliamentary government, a rich ancient history including Indigenous cultures, and a high quality of life",
         "Australia stands as one of the world’s most remarkable destinations, attracting millions of visitors each year with its distinctive blend of breathtaking landscapes, vibrant cities, and deep-rooted culture. As a tourism hotspot, Australia offers an experience unlike any other — a place where modern urban energy meets ancient natural beauty, and where every traveler can find something to admire and explore. From the sun-kissed shores of the Gold Coast to the dramatic cliffs of the Great Ocean Road, Australia’s geography reflects both adventure and tranquility, making it a cornerstone of global tourism.",
         "The essence of Australian tourism lies in its diversity. Visitors can immerse themselves in the cosmopolitan culture of Sydney and Melbourne, cities known for their art, architecture, and culinary scenes. Sydney dazzles with the iconic Opera House and Harbour Bridge, while Melbourne thrives on creativity, coffee culture, and street art. Further north, Queensland invites tourists to experience the Great Barrier Reef — the world’s largest coral ecosystem — where marine biodiversity flourishes in dazzling colors beneath the sea. In the Red Centre, Uluru rises majestically, a sacred site of immense cultural and spiritual importance to Indigenous Australians. Every corner of the country contributes to a story of adventure, community, and respect for the land.",
         "Australian culture is a vibrant tapestry woven from Indigenous traditions, colonial heritage, and multicultural influences. The Aboriginal and Torres Strait Islander peoples — the world’s oldest continuous cultures — have lived in harmony with the land for tens of thousands of years. Their stories, art, and music continue to shape the nation’s identity and connect modern Australians to their ancient roots. Across the country, festivals and cultural celebrations showcase this diversity: from Dreamtime storytelling in the Northern Territory to the lively food and wine events of South Australia. Australia’s culture thrives on openness, creativity, and a welcoming spirit that extends to every visitor.",
@@ -27,7 +29,7 @@
         {
           "type": "formula",
           "as": "angle",
-          "expr": "[-45, 0, 45][~~(random() * 3)]"
+          "expr": "[-60, -45, -30, 0, 30, 45, 60][~~(random() * 5)]"
         },
         {
           "type": "formula",
@@ -43,7 +45,7 @@
       "name": "color",
       "type": "ordinal",
       "domain": { "data": "table", "field": "text" },
-      "range": ["#0077b6", "#00b4d8", "#90e0ef", "#ffba08"]
+      "range": ["#0077b6", "#90e0ef", "#ffba08", "#225ea8"]
     }
   ],
 
@@ -64,14 +66,15 @@
       "transform": [
         {
           "type": "wordcloud",
-          "size": [900, 450],
+          "size": [1000, 450],
           "text": { "field": "text" },
           "rotate": { "field": "datum.angle" },
           "font": "Helvetica Neue, Arial",
           "fontSize": { "field": "datum.count" },
           "fontWeight": { "field": "datum.weight" },
-          "fontSizeRange": [15, 70],
-          "padding": 1.25
+          "fontSizeRange": [12, 110],
+          "padding": 0.5,
+          "spiral": "archimedean"
         }
       ]
     }
