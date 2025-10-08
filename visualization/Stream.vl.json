@@ -6,7 +6,7 @@
     "fontWeight": "bold"
   },
   "background": "aliceblue",
-  "width": 900,
+  "width": 780,
   "height": 100,
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/state_arrivals_stream.csv"
@@ -37,7 +37,7 @@
     "color": {
       "field": "State",
       "type": "nominal",
-      "title": "State",
+      "title": "State (Use legend to filter out)",
       "scale": { "scheme": "spectral" }
     },
     "opacity": {
