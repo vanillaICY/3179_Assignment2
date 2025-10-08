@@ -4,6 +4,7 @@
   "width": 800,
   "height": 400,
   "padding": 0,
+
   "data": [
     {
       "name": "table",
@@ -14,13 +15,14 @@
         "Wildlife is another cornerstone of Australia’s tourism appeal. The country is home to some of the planet’s most unique and fascinating creatures — kangaroos, koalas, wombats, platypuses, and countless species found nowhere else. Nature lovers can spot dolphins off the coasts, dive among coral gardens, or witness the migration of whales along pristine shorelines. In its vast national parks — such as Kakadu, Daintree, and Cradle Mountain — the connection between culture and environment becomes clear: these are living landscapes that embody both ecological and spiritual significance.",
         "Beyond its natural beauty, Australia’s tourism industry embraces sustainability and innovation. Many destinations focus on eco-tourism, aiming to preserve fragile ecosystems while promoting education and respect for the environment. Whether exploring ancient rock art, tasting local cuisine, or meeting friendly locals in a coastal town, visitors are invited to experience not only the land but the vibrant culture that defines it. Australia welcomes the world with open arms, promising discovery, inspiration, and memories that last a lifetime."
       ],
+
       "transform": [
         {
           "type": "countpattern",
           "field": "data",
           "case": "upper",
           "pattern": "[\\w']{3,}",
-          "stopwords": "(i|me|my|myself|we|us|our|ours|ourselves|you|your|yours|yourself|yourselves|he|him|his|himself|she|her|hers|herself|it|its|itself|they|them|their|theirs|themselves|what|which|who|whom|whose|this|that|these|those|am|is|are|was|were|be|been|being|have|has|had|having|do|does|did|doing|will|would|should|can|could|ought|i'm|you're|he's|she's|it's|we're|they're|i've|you've|we've|they've|i'd|you'd|he'd|she'd|we'd|they'd|i'll|you'll|he'll|she'll|we'll|they'll|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|doesn't|don't|didn't|won't|wouldn't|shan't|shouldn't|can't|cannot|couldn't|mustn't|let's|that's|who's|what's|here's|there's|when's|where's|why's|how's|a|an|the|and|but|if|or|because|as|until|while|of|at|by|for|with|about|against|between|into|through|during|before|after|above|below|to|from|up|upon|down|in|out|on|off|over|under|again|further|then|once|here|there|when|where|why|how|all|any|both|each|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|say|says|said|shall|welcome|guide|guides|travel|travels|traveller|travellers|traveler|travelers|tourism|tourist|tourists|visit|visits|visiting|visited|destination|destinations|explore|exploring|discover|discovering|experience|experiences|information|official|website|site|blog|post|article|review|reviews|planner|planning|trip|trips|itinerary|itineraries|season|seasons|holiday|holidays|vacation|vacations|stay|stays|accommodation|accommodations|hotel|hotels|booking|bookings)"
+          "stopwords": "(i|me|my|myself|we|us|our|ours|ourselves|you|your|yours|yourself|yourselves|he|him|his|himself|she|her|hers|herself|it|its|itself|they|them|their|theirs|themselves|what|which|who|whom|whose|this|that|these|those|am|is|are|was|were|be|been|being|have|has|had|having|do|does|did|doing|will|would|should|can|could|ought|i'm|you're|he's|she's|it's|we're|they're|i've|you've|we've|they've|i'd|you'd|he'd|she'd|we'd|they'd|i'll|you'll|he'll|she'll|we'll|they'll|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|doesn't|don't|didn't|won't|wouldn't|shan't|shouldn't|can't|cannot|couldn't|mustn't|let's|that's|who's|what's|here's|there's|when's|where's|why's|how's|a|an|the|and|but|if|or|because|as|until|while|of|at|by|for|with|about|against|between|into|through|during|before|after|above|below|to|from|up|upon|down|in|out|on|off|over|under|again|further|then|once|here|there|when|where|why|how|all|any|both|each|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|many|Australians|something|meets||says|said|shall|meet|guide|guides|travels|traveller|travelers|tourists|visit|visits|visiting|visited|destinations|discover|discovering|information|official|website|site|article|review|reviews|planner|planningseason|seasons|stay|stays|accommodation|accommodations|hotel|hotels|booking|every||making|bookings)"
         },
         {
           "type": "formula",
@@ -30,47 +32,48 @@
         {
           "type": "formula",
           "as": "weight",
-          "expr": "(datum.text=='AUSTRALIA' || datum.text=='TOURISM') ? 800 : 200"
+          "expr": "(datum.text=='AUSTRALIA' || datum.text=='TOURISM') ? 1000 : 200"
         }
       ]
     }
   ],
+
   "scales": [
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "table", "field": "text"},
+      "domain": { "data": "table", "field": "text" },
       "range": ["#0077b6", "#00b4d8", "#90e0ef", "#ffba08"]
     }
   ],
+
   "marks": [
     {
       "type": "text",
-      "from": {"data": "table"},
+      "from": { "data": "table" },
       "encode": {
         "enter": {
-          "text": {"field": "text"},
-          "align": {"value": "center"},
-          "baseline": {"value": "alphabetic"},
-          "fill": {"scale": "color", "field": "text"}
+          "text": { "field": "text" },
+          "align": { "value": "center" },
+          "baseline": { "value": "alphabetic" },
+          "fill": { "scale": "color", "field": "text" }
         },
-        "update": {"fillOpacity": {"value": 1}},
-        "hover": {"fillOpacity": {"value": 0.25}}
+        "update": { "fillOpacity": { "value": 1 } },
+        "hover": { "fillOpacity": { "value": 0.25 } }
       },
       "transform": [
         {
           "type": "wordcloud",
           "size": [900, 450],
-          "text": {"field": "text"},
-          "rotate": {"field": "datum.angle"},
+          "text": { "field": "text" },
+          "rotate": { "field": "datum.angle" },
           "font": "Helvetica Neue, Arial",
-          "fontSize": {"field": "datum.count"},
-          "fontWeight": {"field": "datum.weight"},
+          "fontSize": { "field": "datum.count" },
+          "fontWeight": { "field": "datum.weight" },
           "fontSizeRange": [15, 70],
           "padding": 1.25
         }
       ]
     }
-  ],
-  "config": {}
+  ]
 }
