@@ -23,7 +23,7 @@
         "min": 0,
         "max": 3,
         "step": 1,
-        "name": "Year from 2018 (exclude 20-21): "
+        "name": "Year from 2019: "
       }
     }
   ],
@@ -69,7 +69,12 @@
         },
         "tooltip": [
           { "field": "Purpose", "type": "nominal" },
-          { "field": "Percent", "type": "quantitative", "format": ".1f" },
+          {
+            "field": "Percent",
+            "title": "Percentage(%)",
+            "type": "quantitative",
+            "format": ".1f"
+          },
           { "field": "Year", "type": "nominal" }
         ]
       }
@@ -90,31 +95,12 @@
           "type": "quantitative",
           "scale": { "type": "sqrt", "zero": true, "rangeMin": 30 }
         },
-        "text": { "field": "Purpose" },
+        "text": { "field": "Percent" },
         "opacity": {
           "condition": [{ "param": "hoverPurpose", "value": 1 }],
-          "value": 1
+          "value": 0.15
         },
         "color": { "value": null }
-      },
-      "transform": [
-        {
-          "filter": "datum.Purpose == 'Business' || datum.Purpose == 'Visiting friends/relatives' || datum.Purpose == 'Holiday' || datum.Purpose == 'Education'"
-        }
-      ]
-    },
-
-    {
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "baseline": "middle",
-        "fontSize": 18
-      },
-      "encoding": {
-        "text": {
-          "expr": "['2018-19 (pre-COVID)','2022-23','2023-24','2024-25'][yearIndex]"
-        }
       }
     }
   ],
