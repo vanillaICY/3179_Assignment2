@@ -40,7 +40,7 @@
       "width": 450,
       "height": 80,
       "title": {
-        "text": "Use this line chart to filter out the data based on time",
+        "text": "Use the chart below to filter out the data based on time",
         "fontWeight": "normal"
       },
       "mark": {
