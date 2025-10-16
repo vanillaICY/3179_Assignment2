@@ -12,6 +12,7 @@
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/short_term_arrivals_long.csv"
   },
+
   "encoding": {
     "x": { "field": "Month", "type": "quantitative", "title": "Month" },
     "y": {
@@ -19,27 +20,30 @@
       "type": "quantitative",
       "title": "Arrivals (Million)"
     },
+
     "color": {
       "condition": {
         "param": "linehover",
         "field": "Year",
         "type": "nominal",
-        "legend": null
+        "legend": null,
+        "empty": true
       },
       "value": "grey"
-    },
-    "opacity": {
-      "condition": { "param": "linehover", "value": 1 },
-      "value": 0.2
     }
   },
+
   "layer": [
     {
       "params": [
         {
           "name": "linehover",
-          "value": [{ "Year": "2024-25" }],
-          "select": { "type": "point", "fields": ["Year"], "on": "pointerover" }
+          "select": {
+            "type": "point",
+            "fields": ["Year"],
+            "on": "pointerover",
+            "clear": "pointerout"
+          }
         }
       ],
       "mark": { "type": "line", "strokeWidth": 8, "stroke": "transparent" }

@@ -2,8 +2,8 @@
   "$schema": "https://vega.github.io/schema/vega/v6.json",
   "background": "aliceblue",
   "padding": 5,
-  "width": 400,
-  "height": 300,
+  "width": 350,
+  "height": 350,
   "title": {
     "text": "Purpose of Visitor Arrivals (%)",
     "fontSize": 14,
@@ -35,7 +35,7 @@
         {
           "type": "pie",
           "field": "Percent",
-          "sort": true,
+          "startAngle": { "signal": "startAngle" },
           "as": ["startAngle", "endAngle"]
         }
       ]
@@ -53,6 +53,21 @@
         "step": 1,
         "name": "Year: "
       }
+    },
+    {
+      "name": "startAngle",
+      "value": 0,
+      "bind": { "input": "range", "min": 0, "max": 6.29, "step": 0.01 }
+    },
+    {
+      "name": "padAngle",
+      "value": 0,
+      "bind": { "input": "range", "min": 0, "max": 0.1 }
+    },
+    {
+      "name": "innerRadius",
+      "value": 60,
+      "bind": { "input": "range", "min": 0, "max": 120, "step": 1 }
     }
   ],
 
@@ -73,10 +88,13 @@
         "update": {
           "x": { "signal": "width/2" },
           "y": { "signal": "height/2" },
+
           "startAngle": { "field": "startAngle" },
           "endAngle": { "field": "endAngle" },
-          "innerRadius": { "value": 60 } /* donut */,
-          "outerRadius": { "signal": "min(width,height)/2 - 5" } /* fixed */,
+          "padAngle": { "signal": "padAngle" },
+          "innerRadius": { "signal": "innerRadius" },
+          "outerRadius": { "signal": "min(width,height)/2 - 5" },
+
           "stroke": { "value": "#fff" },
           "fill": { "scale": "color", "field": "Purpose" },
           "tooltip": {
@@ -93,7 +111,7 @@
           "x": { "signal": "width/2" },
           "y": { "signal": "height/2" },
           "theta": { "signal": "(datum.startAngle + datum.endAngle)/2" },
-          "radius": { "signal": "(min(width,height)/2 + 60)/2" },
+          "radius": { "signal": "(min(width,height)/2 + innerRadius)/2" },
           "align": { "value": "center" },
           "baseline": { "value": "middle" },
           "fontSize": { "value": 12 },

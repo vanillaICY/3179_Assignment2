@@ -3,8 +3,8 @@
   "data": {
     "url": "https://raw.githubusercontent.com/vanillaICY/3179_Assignment2/refs/heads/main/data/tourism_consumption_au.csv"
   },
-  "width": 275,
-  "height": 300,
+  "width": "container",
+  "height": 325,
   "background": "aliceblue",
   "title": {
     "text": "Tourism consumption ($b)",
@@ -43,7 +43,8 @@
           "field": "Type",
           "type": "nominal",
           "title": "Type",
-          "scale": { "scheme": "blues" }
+          "scale": { "scheme": "set2" },
+          "legend": { "orient": "bottom", "labelFontSize": 11.5 }
         },
         "order": { "field": "Type" },
         "opacity": {
@@ -91,7 +92,7 @@
         {
           "mark": {
             "type": "text",
-            "dx": 6,
+            "dx": -35,
             "dy": -6,
             "align": "left",
             "baseline": "bottom",

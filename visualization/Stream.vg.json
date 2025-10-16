@@ -3,7 +3,7 @@
   "background": "white",
   "padding": 5,
   "width": 300,
-  "height": 300,
+  "height": 500,
   "title": {
     "text": "Visitor Arrivals by State (Selected Years)",
     "fontSize": 14,

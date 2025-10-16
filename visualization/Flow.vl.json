@@ -46,7 +46,7 @@
         "color": {
           "field": "Visitors",
           "type": "quantitative",
-          "scale": { "scheme": "tealblues" },
+          "scale": { "scheme": "orangered" },
           "legend": {
             "title": "Number of Visitors",
             "format": ".2s",
@@ -55,7 +55,12 @@
         },
         "tooltip": [
           { "field": "Country", "type": "nominal", "title": "From Country" },
-          { "field": "Visitors", "type": "quantitative", "title": "Visitors" }
+          {
+            "field": "Visitors",
+            "type": "quantitative",
+            "title": "Visitors",
+            "format": ","
+          }
         ]
       }
     },
